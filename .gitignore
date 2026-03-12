@@ -1,0 +1,4 @@
+# ignoring vendor directory
+vendor/*
+# ignoring secrets 😉
+.env
