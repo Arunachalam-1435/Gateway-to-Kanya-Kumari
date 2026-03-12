@@ -1,20 +1,38 @@
 <?php
 namespace App\Core;
-$dotenv = Dotenv\Dotenv::createImmutable("/home/panther/Gateway-to-Kanya-Kumari");
-$dotenv->load();
-$host = $_ENV['DB_HOST'];
-$port = 5432;
-$db_name = $_ENV['DB_NAME'];
-$username = $_ENV['DB_USER'];
-$password = $_ENV['DB_PASSWORD'];
-try{
-    $dsn = "pgsql:host=$host;port=$port;dbname=$db_name";
-    $pdo = new PDO($dsn, $username, $password,[
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-    ]);
-}
-catch(PDOException $e){
-    echo $e."\n";
-    die("DB connection failed");
+use PDO;
+use PDOException;
+use Dotenv\Dotenv;
+require '/home/giri/Gateway-to-Kanya-Kumari/vendor/autoload.php';
+class Database{
+    private string $host;
+    private string $db_name;
+    private string $username;
+    private string $password;
+    private ?PDO $pdo = null;
+
+    public function __construct(){
+        $dotenv = Dotenv::createImmutable("/home/giri/Gateway-to-Kanya-Kumari");
+        $dotenv->load();
+        $this->host = $_ENV['DB_HOST'];
+        $this->port = 5432;
+        $this->db_name = $_ENV['DB_NAME'];
+        $this->username = $_ENV['DB_USER'];
+        $this->password = $_ENV['DB_PASSWORD'];
+    }
+    public function connect(): PDO{
+        if($this->pdo == null){
+            try{
+                $dsn = "pgsql:host=$this->host;port=$this->port;dbname=$this->db_name";
+                $pdo = new PDO($dsn, $this->username, $this->password,[
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ]);
+            }
+            catch(PDOException $e){
+                die("DB connection failed. Because ".$e->getMessage());
+            }
+        }
+        return $pdo;
+    }
 }
