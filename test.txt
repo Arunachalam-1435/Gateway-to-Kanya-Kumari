@@ -1,0 +1,17 @@
+GET /
+GET /places
+GET /places/10
+GET /Places/100
+
+GET /hotels
+GET /hotels/10
+GET /hotels/100
+
+POST /
+POST /places
+POST /places/10
+POST /places/100
+
+POST /hotels
+POST /hotels/10
+POST /hotels/100

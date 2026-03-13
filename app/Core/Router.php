@@ -4,7 +4,6 @@ namespace App\Core;
 use App\Controllers\PlaceController;
 use App\Controllers\HotelController;
 class Router{
-    public array $routes = array("places", "hotels");
     public function __construct(){
 		$this->p_controller = new PlaceController();
         $this->h_controller = new HotelController();

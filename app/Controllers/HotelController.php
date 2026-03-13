@@ -1,18 +1,28 @@
 <?php
 namespace App\Controllers;
+use App\Models\HotelModel;
 class HotelController{
+    public function __construct(){
+		$this->model = new HotelModel();
+	}
     public function hotelController(string $method, ?string $id):void{
         if($id){
-            $this->resourceRequest($method);
+            $this->resourceRequest($method, $id);
         }
         else{
             $this->collectionRequest($method);
         }
     }
-    public function resourceRequest($method){
+    public function resourceRequest($method, $id){
         if($method == "GET"){
-            http_response_code(200);
-            echo json_encode(['status' => 'resource exists']);
+            $result = $this->model->getHotel($id);
+            if(empty($result)){
+                http_response_code(404);
+                echo json_encode(["error" => "Given hotel name does not exists"]);
+            }
+            else{
+                echo json_encode($result);
+            }
         }
         else{
             http_response_code(405);
@@ -21,8 +31,8 @@ class HotelController{
     }
     public function collectionRequest($method){
         if($method == "GET"){
-            http_response_code(200);
-            echo json_encode(['status' => 'resources exists in database']);
+            $result = $this->model->getAllHotels();
+            echo json_encode($result);
         }
         else{
             http_response_code(405);

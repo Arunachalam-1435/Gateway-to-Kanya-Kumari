@@ -16,7 +16,14 @@ class PlaceController{
     public function resourceRequest($method, $id){
         if($method == "GET"){
 			$result = $this->model->getPlace($id);
-			echo json_encode($result);
+            if(empty($result)){
+                http_response_code(404);
+                echo json_encode(["error" => "Given Place does not exists"]);
+
+            }
+            else{
+                echo json_encode($result);
+            }
         }
         else{
             http_response_code(405);
@@ -25,8 +32,8 @@ class PlaceController{
     }
     public function collectionRequest($method){
         if($method == "GET"){
-            http_response_code(200);
-            echo json_encode(['status' => 'resources exists in database']);
+            $result = $this->model->getAllPlaces();
+            echo json_encode($result);
         }
         else{
             http_response_code(405);
