@@ -2,8 +2,6 @@
 namespace App\Core;
 use PDO;
 use PDOException;
-use Dotenv\Dotenv;
-require __DIR__ . '/../../vendor/autoload.php';
 class Database{
     private string $host;
     private string $db_name;
@@ -12,8 +10,6 @@ class Database{
     private ?PDO $pdo = null;
 
     public function __construct(){
-        $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
-        $dotenv->load();
         $this->host = $_ENV['DB_HOST'];
         $this->port = 5432;
         $this->db_name = $_ENV['DB_NAME'];
@@ -23,6 +19,7 @@ class Database{
     public function connect(): PDO{
         if($this->pdo == null){
             try{
+                //var_dump($this->host);
                 $dsn = "pgsql:host=$this->host;port=$this->port;dbname=$this->db_name";
                 $this->pdo = new PDO($dsn, $this->username, $this->password,[
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
