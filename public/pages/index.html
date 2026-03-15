@@ -1,20 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../js/main.js" defer></script>
-    <link rel="stylesheet" href="../css/style.css">
-    <!--link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script-- src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script-->
-    <title>Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanyakumari Tourism</title>
+<link rel="stylesheet" href="../css/style.css">
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
 </head>
 <body>
-    <!--button onclick="getLocation()" id="msg">See your location!</!--button>
-    <div id="id"></div>
-    <script-- src="../assets/js/app.js"></script-->
-    <div id="id1"></div>
-    <h1>Home Page</h1>
-    <p>Router works well!</p>
+
+<!-- Navbar -->
+<header>
+  <nav class="navbar">
+    <h2 class="logo">Kanyakumari Tourism</h2>
+    <ul class="menu">
+      <li><a href="#">Home</a></li>
+      <li><a href="#map-section">Map</a></li>
+      <li><a href="#footer">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Explore Kanyakumari</h1>
+    <p>Discover nearby hotels, tourist spots, and plan your route!</p>
+  </div>
+</section>
+
+<!-- Map + Sidebar Section -->
+<section id="map-section">
+  <div class="sidebar">
+    <h3>Map Options</h3>
+    <button id="btn-location" onclick="getLocation()">Show your location</button>
+    <button id="btn-hotels" onclick="showHotels()">Show Hotels</button>
+    <button id="btn-tourism">Show Tourism Places</button>
+    <button id="btn-route">Show Best Route</button>
+  </div>
+  <div id="id"></div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-content">
+    <div>
+      <h4>About</h4>
+      <p>Kanyakumari Tourism showcases the beauty and attractions of the southernmost tip of India.</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>Email: info@kanyakumaritourism.com</p>
+      <p>Phone: +91 12345 67890</p>
+    </div>
+  </div>
+  <p class="copyright">&copy; 2026 Kanyakumari Tourism</p>
+</footer>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="../js/main.js"></script>
+
 </body>
 </html>
