@@ -2,6 +2,7 @@ let map;
 let hotelLayer;
 let userLayer;
 let placeLayer;
+let routeLayer;
 //initialize map
 function initMap() {
     const defaultLat = 8.174450;
@@ -31,7 +32,7 @@ function showHotels() {
     if (hotels) {
         addHotelMarkers(JSON.parse(hotels));
     } else {
-        fetch("http://localhost:8080/api/hotels")
+        fetch("http://localhost:8000/api/hotels")
             .then(res => res.json())
             .then(data => {
                 const limitedData = data.slice(0, 57);
@@ -73,7 +74,7 @@ function showPlaces() {
 }
 // Separate fetch logic for cleaner code
 function fetchPlaces() {
-    fetch("http://localhost:8080/api/places")
+    fetch("http://localhost:8000/api/places")
         .then(res => res.json())
         .then(data => {
             const limitedData = data.slice(0, 57);
@@ -119,5 +120,64 @@ function success(position) {
 //error callback
 function error() {
     alert("Can't show your location");
+}
+function openRouteDialog() {
+    const select = document.getElementById("destinationSelect");
+    select.innerHTML = ""; // Clear old options
+
+    // Get data from localStorage
+    const hotels = JSON.parse(localStorage.getItem("hotels") || "[]");
+    const places = JSON.parse(localStorage.getItem("places") || "[]");
+    const allDestinations = [...hotels, ...places];
+
+    if (allDestinations.length === 0) {
+        alert("Please show Hotels or Tourist Places first to load destinations!");
+        return;
+    }
+
+    allDestinations.forEach(item => {
+        let option = document.createElement("option");
+        option.value = JSON.stringify({lat: item.lat, lon: item.lon});
+        option.text = item.name;
+        select.appendChild(option);
+    });
+
+    document.getElementById("routeModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("routeModal").style.display = "none";
+}
+
+function calculateRoute() {
+    //const userLoc = JSON.parse(sessionStorage.getItem("userLocation"));
+    const userLoc = { lon: 77.5492, lat: 8.0877 }; 
+    if (!userLoc) {
+        alert("Please click 'Show your location' first!");
+        return;
+    }
+
+    const dest = JSON.parse(document.getElementById("destinationSelect").value);
+    
+    // ORS URL: Use [Lon, Lat]
+    const url = `http://localhost:8080/ors/v2/directions/driving-car?start=${userLoc.lon},${userLoc.lat}&end=${dest.lon},${dest.lat}`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            if (routeLayer) map.removeLayer(routeLayer);
+
+            // Extract coordinates and flip to [lat, lon] for Leaflet
+            const rawCoords = data.features[0].geometry.coordinates;
+            const latLngs = rawCoords.map(c => [c[1], c[0]]);
+
+            routeLayer = L.polyline(latLngs, {color: 'blue', weight: 6}).addTo(map);
+            map.fitBounds(routeLayer.getBounds());
+            
+            closeModal();
+            const dist = (data.features[0].properties.summary.distance / 1000).toFixed(2);
+            alert(`Route Found: ${dist} km`);
+        })
+        .catch(err => alert("Error calculating route. Ensure ORS is running."));
 }
 initMap();

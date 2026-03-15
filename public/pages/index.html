@@ -15,7 +15,7 @@
 <!-- Navbar -->
 <header>
   <nav class="navbar">
-    <h2 class="logo">Kanyakumari Tourism</h2>
+    <h2 class="logo">Gateway to Kanya Kumari</h2>
     <ul class="menu">
       <li><a href="#">Home</a></li>
       <li><a href="#map-section">Map</a></li>
@@ -27,7 +27,7 @@
 <!-- Hero Section -->
 <section class="hero">
   <div class="hero-content">
-    <h1>Explore Kanyakumari</h1>
+    <h1>Gateway to Kanya Kumari</h1>
     <p>Discover nearby hotels, tourist spots, and plan your route!</p>
   </div>
 </section>
@@ -39,7 +39,21 @@
     <button id="btn-location" onclick="getLocation()">Show your location</button>
     <button id="btn-hotels" onclick="showHotels()">Show Hotels</button>
     <button id="btn-tourism" onclick="showPlaces()">Show Tourism Places</button>
-    <button id="btn-route">Show Best Route</button>
+    <button id="btn-route" onclick="openRouteDialog()">Show Best Route</button>
+    <div id="routeModal" class="modal">
+    <div class="modal-content">
+      <h3>Plan Your Route</h3>
+      <p><b>Source:</b> Your Current Location</p>
+      <label for="destinationSelect"><b>Select Destination:</b></label>
+      <select id="destinationSelect">
+      <!-- Options will be loaded via JS -->
+      </select>
+      <div class="modal-buttons">
+        <button onclick="calculateRoute()">Get Directions</button>
+        <button onclick="closeModal()" style="background:#888">Cancel</button>
+      </div>
+    </div>
+  </div>
   </div>
   <div id="map"></div>
 </section>
