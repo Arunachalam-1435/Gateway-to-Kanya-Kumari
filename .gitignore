@@ -2,3 +2,5 @@
 vendor/*
 # ignoring secrets 😉
 .env
+#ignoring .vscode directory
+.vscode/*
