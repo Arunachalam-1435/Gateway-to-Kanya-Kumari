@@ -19,7 +19,10 @@
           </div>
           <div class="input-group">
             <label for="signup-email">Email</label>
-            <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+            <div style="position: relative;">
+              <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+              <span id="match-indicator" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: bold;"></span>
+            </div>
           </div>
           <div class="input-group">
             <label for="signup-password">Password</label>
@@ -27,9 +30,12 @@
           </div>
           <div class="input-group">
             <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Repeat your password" required>
+            <div style="position: relative;">
+              <input type="password" id="confirm-password" name="confirm-password" placeholder="Repeat your password" required>
+              <span id="password-match-indicator" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: bold;"></span>
+            </div>
           </div>
-          <button type="submit" class="login-btn" id="btn">Join Now</button>
+          <button type="button" class="login-btn" onclick="userRegister()">Join Now</button>
         </form>
         <p class="signup-link">Already a member? <a href="/home#login-section">Login here</a></p>
       </div>

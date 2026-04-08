@@ -13,13 +13,11 @@ class Router{
             case "api":
                 if(!empty($path2)){
                     if($path2 == "places"){
-                        header("Content-Type: application/json");
                         $this->p_controller = new PlaceController();
                         $this->p_controller->placeController($method, $id);
                         break;
                     }
                     elseif($path2 == "hotels"){
-                        header("Content-Type: application/json");
                         $this->h_controller = new HotelController();
                         $this->h_controller->hotelController($method, $id);
                         break;
@@ -38,9 +36,8 @@ class Router{
                 require __DIR__.'/../../public/pages/signup.html';
                 break;
             case "register":
-                header("Content-Type: application/json");
                 $this->controller = new UserController();
-                $this->controller->userRegister();
+                $this->controller->userRegister($method);
                 break;
             default:
                 require __DIR__.'/../../public/pages/404.html';

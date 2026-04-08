@@ -17,10 +17,12 @@ class HotelController{
         if($method == "GET"){
             $result = $this->model->getHotel($id);
             if(empty($result)){
+                header("Content-Type: application/json");
                 http_response_code(404);
                 echo json_encode(["error" => "Given hotel name does not exists"]);
             }
             else{
+                header("Content-Type: application/json");
                 echo json_encode($result);
             }
         }
@@ -32,6 +34,7 @@ class HotelController{
     public function collectionRequest($method){
         if($method == "GET"){
             $result = $this->model->getAllHotels();
+            header("Content-Type: application/json");
             echo json_encode($result);
         }
         else{

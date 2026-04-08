@@ -257,6 +257,19 @@ footer .copyright{
   border-color: #ff7a00;
 }
 
+.match-success {
+  color: #4CAF50; /* Green */
+}
+
+.match-error {
+  color: #f44336; /* Red */
+}
+
+/* Optional: Subtle border highlight on the input itself */
+.input-match {
+  border-color: #4CAF50 !important;
+}
+
 .login-btn {
   width: 100%;
   padding: 14px;
