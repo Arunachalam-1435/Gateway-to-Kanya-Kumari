@@ -7,7 +7,8 @@ CREATE SCHEMA business;
 CREATE TABLE users.users (
     id SERIAL PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
-    email TEXT UNIQUE
+    email TEXT UNIQUE,
+    password TEXT NOT NULL
 );
 
 CREATE TABLE geo.tourist_places (

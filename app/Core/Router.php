@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Core;
 use App\Controllers\PlaceController;
 use App\Controllers\HotelController;
+use App\Controllers\UserController;
 class Router{
     public function dispatch(string $method, ?string $path1, ?string $path2, ?string $id):void{
         switch($path1){
@@ -35,6 +36,11 @@ class Router{
                 }
             case "signup":
                 require __DIR__.'/../../public/pages/signup.html';
+                break;
+            case "register":
+                header("Content-Type: application/json");
+                $this->controller = new UserController();
+                $this->controller->userRegister();
                 break;
             default:
                 require __DIR__.'/../../public/pages/404.html';

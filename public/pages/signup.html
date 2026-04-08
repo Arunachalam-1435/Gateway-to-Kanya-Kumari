@@ -12,7 +12,7 @@
       <div class="login-card">
         <h2>Start Your Journey</h2>
         <p>Create an account to save your favorite spots and artisan orders</p>
-        <form id="signup-form" action="/register" method="POST">
+        <form id="signup-form">
           <div class="input-group">
             <label for="fullname">Full Name</label>
             <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
@@ -27,14 +27,15 @@
           </div>
           <div class="input-group">
             <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" placeholder="Repeat your password" required>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Repeat your password" required>
           </div>
-          <button type="submit" class="login-btn">Join Now</button>
+          <button type="submit" class="login-btn" id="btn">Join Now</button>
         </form>
         <p class="signup-link">Already a member? <a href="/home#login-section">Login here</a></p>
       </div>
     </main>
     <footer id="main-footer"></footer>
     <script src="../js/page.js"></script>
+    <script src="../js/script.js"></script>
   </body>
 </html>
