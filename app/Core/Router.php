@@ -33,6 +33,9 @@ class Router{
                     require __DIR__.'/../../public/pages/404.html';
                     break;
                 }
+            case "signup":
+                require __DIR__.'/../../public/pages/signup.html';
+                break;
             default:
                 require __DIR__.'/../../public/pages/404.html';
                 break;

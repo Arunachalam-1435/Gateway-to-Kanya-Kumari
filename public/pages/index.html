@@ -1,82 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kanyakumari Tourism</title>
-<link rel="stylesheet" href="../css/style.css">
-
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
-</head>
-<body>
-
-<!-- Navbar -->
-<header>
-  <nav class="navbar">
-    <h2 class="logo">Gateway to Kanya Kumari</h2>
-    <ul class="menu">
-      <li><a href="#">Home</a></li>
-      <li><a href="#map-section">Map</a></li>
-      <li><a href="#footer">Contact</a></li>
-    </ul>
-  </nav>
-</header>
-
-<!-- Hero Section -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>Gateway to Kanya Kumari</h1>
-    <p>Discover nearby hotels, tourist spots, and plan your route!</p>
-  </div>
-</section>
-
-<!-- Map + Sidebar Section -->
-<section id="map-section">
-  <div class="sidebar">
-    <h3>Map Options</h3>
-    <button id="btn-location" onclick="getLocation()">Show your location</button>
-    <button id="btn-hotels" onclick="showHotels()">Show Hotels</button>
-    <button id="btn-tourism" onclick="showPlaces()">Show Tourism Places</button>
-    <button id="btn-route" onclick="openRouteDialog()">Show Best Route</button>
-    <div id="routeModal" class="modal">
-    <div class="modal-content">
-      <h3>Plan Your Route</h3>
-      <p><b>Source:</b> Your Current Location</p>
-      <label for="destinationSelect"><b>Select Destination:</b></label>
-      <select id="destinationSelect">
-      <!-- Options will be loaded via JS -->
-      </select>
-      <div class="modal-buttons">
-        <button onclick="calculateRoute()">Get Directions</button>
-        <button onclick="closeModal()" style="background:#888">Cancel</button>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanyakumari Tourism</title>
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
+    <header id="main-header"></header>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Gateway to Kanya Kumari</h1>
+        <p>Discover nearby hotels, tourist spots, and plan your route!</p>
       </div>
-    </div>
-  </div>
-  </div>
-  <div id="map"></div>
-</section>
-
-<!-- Footer -->
-<footer id="footer">
-  <div class="footer-content">
-    <div>
-      <h4>About</h4>
-      <p>Kanyakumari Tourism showcases the beauty and attractions of the southernmost tip of India.</p>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <p>Email: info@kanyakumaritourism.com</p>
-      <p>Phone: +91 12345 67890</p>
-    </div>
-  </div>
-  <p class="copyright">&copy; 2026 Kanyakumari Tourism</p>
-</footer>
-
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="../js/main.js"></script>
-
-</body>
+    </section>
+    <!--Features Section-->
+    <section id="features-section" class="features-grid">
+      <!-- Hotel Booking Card -->
+      <div class="feature-card">
+        <div class="card-icon">🏨</div>
+        <h3>Book Hotels</h3>
+        <p>Find and reserve the best stays near the Cape.</p>
+        <button>View Hotels</button>
+      </div>
+      <!-- History & Info Card -->
+      <div class="feature-card">
+        <div class="card-icon">🏛️</div>
+        <h3>Explore History</h3>
+        <p>Discover the rich legacy of Kanyakumari's landmarks.</p>
+        <button>Learn More</button>
+      </div>
+      <!-- Smart Navigation Card -->
+      <div class="feature-card">
+        <div class="card-icon">🗺️</div>
+        <h3>Smart Navigation</h3>
+        <p>Get turn-by-turn directions to local attractions.</p>
+        <button>Start Route</button>
+      </div>
+      <!-- Artisan Marketplace Card -->
+      <div class="feature-card">
+        <div class="card-icon">🛒</div>
+        <h3>Local Artisans</h3>
+        <p>Support local talent. Shop authentic handicrafts.</p>
+        <button>Visit Shop</button>
+      </div>
+      <!-- Eco-Zone Alert Card -->
+      <div class="feature-card eco-card">
+        <div class="card-icon">🌿</div>
+        <h3>Eco-Zone Alerts</h3>
+        <p>Automatic alerts when entering protected zones.</p>
+        <span id="eco-status">Scanning Location...</span>
+      </div>
+    </section>
+    <!--Login Section-->
+    <section id="login-section" class="login-container">
+      <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p>Login to access your bookings & artisan orders</p>
+        <form id="login-form">
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+        <p class="signup-link">Don't have an account? <a href="/signup">Sign Up</a></p>
+      </div>
+    </section>
+    <footer id="main-footer"></footer>
+    <script src="../js/page.js"></script>
+  </body>
 </html>
