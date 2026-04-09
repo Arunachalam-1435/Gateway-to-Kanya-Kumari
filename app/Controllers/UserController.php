@@ -5,6 +5,30 @@ class UserController{
 	public function __construct(){
 		$this->model = new UserModel();
 	}
+    public function getUser($method){
+        header("Content-Type: application/json");    
+        if($method == "GET"){
+            if(isset($_SESSION['user_id'])){
+                echo json_encode([
+                "status" => "success",
+                "username" => $_SESSION['username'],
+                "email" => $_SESSION['email_id']
+                ]);
+            }
+            else{
+                echo json_encode([
+                    "status" => "error",
+                    "redirect" => "/home#login-secion"
+                ]);
+            }
+        }
+        else{
+            echo json_encode([
+                "status" => "error",
+                "redirect" => "/home#login-section"
+            ]);
+        }
+    }
     public function userRegister($method){
         if($method != "POST"){
             http_response_code(405);
@@ -93,11 +117,13 @@ class UserController{
 
         if($result != false){
             if(password_verify($password, $result['password'])){
+                session_regenerate_id(true);
+                $_SESSION['user_id'] = $result['id'];
+                $_SESSION['username'] = $result['username'];
+                $_SESSION['email_id'] = $result['email'];
                 http_response_code(200);
                 echo json_encode([
-                    "status" => "success",
-                    "username" => $result["username"],
-                    "email" => $result["email"]
+                    "status" => "success"
                 ]);
             }
             else{
@@ -105,9 +131,6 @@ class UserController{
                 echo json_encode([
                     "status" => "error",
                     "message" => "Invalid Password",
-                    "password_hash" => $result['password'],
-                    "password" => $password,
-                    "hash" => $hash
                 ]);
             }
         }

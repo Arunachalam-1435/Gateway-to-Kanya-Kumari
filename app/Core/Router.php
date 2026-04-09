@@ -44,7 +44,22 @@ class Router{
                 $this->controller->userLogin($method);
                 break;
             case "dashboard":
-                require __DIR__.'/../../public/pages/dashboard.html';
+                if(isset($_SESSION['user_id'])){
+                    require __DIR__.'/../../public/pages/dashboard.html';
+                }
+                else{
+                    header("Location: /home");
+                    exit;
+                }
+                break;
+            case "logout":
+                session_unset();
+                session_destroy();
+                header("Location: /home");
+                exit;
+            case "user":
+                $this->controller = new UserController();
+                $this->controller->getUser($method);
                 break;
             default:
                 require __DIR__.'/../../public/pages/404.html';

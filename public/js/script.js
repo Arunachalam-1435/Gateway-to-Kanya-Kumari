@@ -86,7 +86,6 @@ function userLogin(){
                 document.getElementById("notification").innerText = data['message'];
             }
             else{
-                localStorage.setItem();
                 location.replace("http://localhost:8000/dashboard");
             }
         });
@@ -94,4 +93,16 @@ function userLogin(){
     else{
         notification.innerText = "Invalid Email format";
     }
+}
+function userLogout(){
+    fetch("http://localhost:8000/logout",{
+        redirect: "follow"
+    }).then(response => {
+        if(response.redirected){
+            window.location.href = response.url;
+        }
+        else{
+            console.log(response);
+        }
+    });
 }

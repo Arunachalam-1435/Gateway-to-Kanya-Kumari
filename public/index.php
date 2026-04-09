@@ -2,6 +2,7 @@
 declare(strict_types=1);
 use App\Core\Router;
 use Dotenv\Dotenv;
+session_start();
 require __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__.'/../');
 $dotenv->load();

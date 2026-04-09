@@ -3,7 +3,10 @@ async function loadComponent(elementId, filePath) {
         const response = await fetch(filePath);
         if (!response.ok) throw new Error(`Failed to load ${filePath}`);
         const content = await response.text();
-        document.getElementById(elementId).innerHTML = content;
+        var dom = document.getElementById(elementId);
+        if(dom){
+            dom.innerHTML = content;
+        }
     } catch (error) {
         console.error("Error loading component:", error);
     }
