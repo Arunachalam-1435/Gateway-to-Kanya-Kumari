@@ -1,0 +1,99 @@
+.places-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.places-hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.places-hero h1 {
+    color: #ff7a00;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.place-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.place-card:hover {
+    transform: translateY(-10px);
+}
+
+.place-image {
+    height: 200px;
+    background-color: #eee;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Add your images here or use placeholders */
+.rock-memorial { background-image: url('../assets/rock-memorial.jpg'); }
+.statue-memorial { background-image: url('../assets/thiruvalluvar-statue.webp'); }
+.temple-memorial { background-image: url('../assets/temple.jpg'); }
+
+.place-content {
+    padding: 25px;
+}
+
+.category-tag {
+    background: #fdf2e9;
+    color: #ff7a00;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.place-content h3 {
+    margin: 15px 0 10px;
+    color: #333;
+}
+
+.place-content p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.place-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: bold;
+    color: #444;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.dir-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff7a00;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dir-btn:hover {
+    background: #e65c00;
+}

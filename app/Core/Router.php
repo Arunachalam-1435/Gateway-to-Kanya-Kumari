@@ -61,6 +61,15 @@ class Router{
                 $this->controller = new UserController();
                 $this->controller->getUser($method);
                 break;
+            case "shop":
+                require __DIR__.'/../../public/pages/shop.html';
+                break;
+            case "places":
+                require __DIR__.'/../../public/pages/places.html';
+                break;
+            case "my-activity":
+                require __DIR__.'/../../public/pages/my-activity.html';
+                break;
             default:
                 require __DIR__.'/../../public/pages/404.html';
                 break;

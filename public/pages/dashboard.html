@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard - Kanyakumari Tourism</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 <body style="background: #f9f9f9;">
   <header>
     <nav class="navbar">
       <h2 class="logo">Gateway to Kanya Kumari</h2>
       <ul class="menu">
-        <li><a href="/dashboard#features-section">Options</a></li>
+        <li><a href="/dashboard#features-section">Features</a></li>
         <li><a href="/dashboard#main-footer">Contact</a></li>
         <li>
           <button id="nav-location-btn" class="nav-btn" onclick="getUserLocation()">
@@ -34,24 +36,25 @@
             </div>
             <button class="logout-btn" onclick="userLogout()">Logout</button>
         </section>
+        <div id="map"></div>
         <!-- Feature Cards Row (Same style as Home) -->
         <section class="features-grid" id="features-section">
             <!-- E-commerce Card -->
-            <div class="feature-card" onclick="window.location.href='shop.html'">
+            <div class="feature-card" onclick="window.location.href='/shop'">
                 <div class="card-icon">🛍️</div>
                 <h3>Artisan Market</h3>
                 <p>Shop authentic handicrafts from local Kanyakumari artisans.</p>
                 <button>Go to Shop</button>
             </div>
             <!-- Tourist Places Card -->
-            <div class="feature-card" onclick="window.location.href='places.html'">
+            <div class="feature-card" onclick="window.location.href='/places'">
                 <div class="card-icon">🏛️</div>
                 <h3>Tourist Spots</h3>
                 <p>Explore history, timings, and entry fees for all attractions.</p>
                 <button>Explore Now</button>
             </div>
             <!-- Hotel Booking Card -->
-            <div class="feature-card" onclick="window.location.href='hotels.html'">
+            <div class="feature-card" onclick="window.location.href='/my-activity'">
                 <div class="card-icon">🏨</div>
                 <h3>My Bookings</h3>
                 <p>Manage your hotel stays and view upcoming reservations.</p>
@@ -63,5 +66,6 @@
     <script src="../js/page.js"></script> 
     <script src="../js/script.js"></script>
     <script src="../js/user.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>
