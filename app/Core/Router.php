@@ -39,6 +39,13 @@ class Router{
                 $this->controller = new UserController();
                 $this->controller->userRegister($method);
                 break;
+            case "login":
+                $this->controller = new UserController();
+                $this->controller->userLogin($method);
+                break;
+            case "dashboard":
+                require __DIR__.'/../../public/pages/dashboard.html';
+                break;
             default:
                 require __DIR__.'/../../public/pages/404.html';
                 break;

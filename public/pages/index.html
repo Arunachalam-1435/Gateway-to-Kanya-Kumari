@@ -58,6 +58,7 @@
       <div class="login-card">
         <h2>Welcome Back</h2>
         <p>Login to access your bookings & artisan orders</p>
+        <h3 id="notification" style="color: red;"></h3>
         <form id="login-form">
           <div class="input-group">
             <label for="email">Email</label>
@@ -67,12 +68,13 @@
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="Enter your password" required>
           </div>
-          <button type="submit" class="login-btn">Login</button>
+          <button type="button" class="login-btn" onclick="userLogin()">Login</button>
         </form>
         <p class="signup-link">Don't have an account? <a href="/signup">Sign Up</a></p>
       </div>
     </section>
     <footer id="main-footer"></footer>
     <script src="../js/page.js"></script>
+    <script src="../js/script.js"></script>
   </body>
 </html>

@@ -34,12 +34,12 @@ function userRegister(){
             password_match_indicator.innerHTML = "✖";
             password_match_indicator.className = "match-error";
             confirm_password.style.borderColor = "#f44336";
+            document.getElementById("notification").innerText = "Passwords does not match";
             return;
         }
     }
     else{
-        alert("Password should be more than 8 characters");
-        return;
+        document.getElementById("notification").innerText = "Password must have atleast 8 characters";
     }
     fetch("http://localhost:8000/register",{
         method: "POST",
@@ -53,6 +53,45 @@ function userRegister(){
         })
     })
     .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error));
+    .then(data => {
+        if(data['status'] !== "success"){
+            document.getElementById("notification").innerText = data['message'];
+        }
+        else{
+            location.replace("http://localhost:8000/home#login-section");
+        }
+    });
+}
+
+function userLogin(){
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var notification = document.getElementById("notification");
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(pattern.test(email)){
+        fetch("http://localhost:8000/login",{
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data['status'] !== "success"){
+                document.getElementById("notification").innerText = data['message'];
+            }
+            else{
+                localStorage.setItem();
+                location.replace("http://localhost:8000/dashboard");
+            }
+        });
+    }
+    else{
+        notification.innerText = "Invalid Email format";
+    }
 }

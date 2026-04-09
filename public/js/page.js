@@ -9,9 +9,7 @@ async function loadComponent(elementId, filePath) {
     }
 }
 
-// Run this when the page loads
 document.addEventListener("DOMContentLoaded", () => {
-    // Path is relative to the page calling the script
     loadComponent("main-header", "../includes/header.html");
     loadComponent("main-footer", "../includes/footer.html");
 });

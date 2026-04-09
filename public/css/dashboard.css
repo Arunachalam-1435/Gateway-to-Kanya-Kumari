@@ -1,0 +1,66 @@
+/* Dashboard Specific Layout */
+.dashboard-wrapper {
+    padding: 40px 50px;
+    min-height: 80vh;
+}
+
+/* User Profile Bar */
+.user-profile-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-icon {
+    font-size: 45px;
+    background: #fdf2e9;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #ff7a00;
+}
+
+.user-details h2 {
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.user-details p {
+    color: #777;
+}
+
+/* Logout Button */
+.logout-btn {
+    padding: 10px 25px;
+    background: #ff4b2b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.logout-btn:hover {
+    background: #e63917;
+}
+
+/* Ensure the feature cards are clickable */
+.feature-card {
+    cursor: pointer;
+}
+
