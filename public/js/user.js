@@ -6,8 +6,21 @@ document.addEventListener("DOMContentLoaded", function() {
             location.replace(`http://localhost:8000${data['redirect']}`);
         }
         else{
-            document.getElementById("display-name").innerText = data['username'];
-            document.getElementById("display-email").innerText = data['email'];
+            var username = document.getElementById("display-name");
+            var email = document.getElementById("display-email");
+            if(username && email){
+                username.innerText = data['username'];
+                email.innerText = data['email'];
+            }
         }
     })
 });
+function openTab(tabName) {
+    // Hide all content
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+    // Remove active class from buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    // Show current
+    document.getElementById(tabName).classList.add('active');
+    event.currentTarget.classList.add('active');
+}
