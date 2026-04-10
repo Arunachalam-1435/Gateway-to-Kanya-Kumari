@@ -32,9 +32,6 @@ class Router{
                     require __DIR__.'/../../public/pages/404.html';
                     break;
                 }
-            case "signup":
-                require __DIR__.'/../../public/pages/signup.html';
-                break;
             case "register":
                 $this->controller = new UserController();
                 $this->controller->userRegister($method);
@@ -69,6 +66,9 @@ class Router{
                 break;
             case "my-activity":
                 require __DIR__.'/../../public/pages/my-activity.html';
+                break;
+            case "hotels":
+                require __DIR__.'/../../public/pages/hotels.html';
                 break;
             default:
                 require __DIR__.'/../../public/pages/404.html';

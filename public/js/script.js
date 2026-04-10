@@ -10,6 +10,8 @@ function userRegister(){
     var match_indicator = document.getElementById("match-indicator");
     var confirm_password = document.getElementById("confirm-password");
     var mail = document.getElementById("signup-email");
+    var notification = document.getElementById("signup-notification");
+    var login_notification = document.getElementById("login-notification");
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if(pattern.test(email)){
@@ -21,6 +23,8 @@ function userRegister(){
         match_indicator.innerHTML = "✖";
         match_indicator.className = "match-error";
         mail.style.borderColor = "#f44336";
+        notification.innerText = "Invalid Email Format";
+        notification.setAttribute("style", "color: red;");
         return;
     }
 
@@ -34,12 +38,14 @@ function userRegister(){
             password_match_indicator.innerHTML = "✖";
             password_match_indicator.className = "match-error";
             confirm_password.style.borderColor = "#f44336";
-            document.getElementById("notification").innerText = "Passwords does not match";
+            notification.innerText = "Passwords does not match";
+            notification.setAttribute("style", "color: red;");
             return;
         }
     }
     else{
-        document.getElementById("notification").innerText = "Password must have atleast 8 characters";
+        notification.innerText = "Password must have atleast 8 characters";
+        notification.setAttribute("style", "color: red;");
     }
     fetch("http://localhost:8000/register",{
         method: "POST",
@@ -55,9 +61,12 @@ function userRegister(){
     .then(response => response.json())
     .then(data => {
         if(data['status'] !== "success"){
-            document.getElementById("notification").innerText = data['message'];
+            notification.innerText = data['message'];
         }
         else{
+            showLogin();
+            login_notification.innerText = "Account Created Successfully";
+            login_notification.setAttribute("style", "color: green;");
             location.replace("http://localhost:8000/home#login-section");
         }
     });
@@ -66,7 +75,7 @@ function userRegister(){
 function userLogin(){
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    var notification = document.getElementById("notification");
+    var login_notification = document.getElementById("login-notification");
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if(pattern.test(email)){
@@ -83,15 +92,18 @@ function userLogin(){
         .then(response => response.json())
         .then(data => {
             if(data['status'] !== "success"){
-                document.getElementById("notification").innerText = data['message'];
+                login_notification.innerText = data['message'];
+                login_notification.setAttribute("style", "color: red;");
             }
             else{
+                
                 location.replace("http://localhost:8000/dashboard");
             }
         });
     }
     else{
-        notification.innerText = "Invalid Email format";
+        login_notification.innerText = "Invalid Email format";
+        login_notification.setAttribute("style", "color: red;");
     }
 }
 function userLogout(){
@@ -105,4 +117,17 @@ function userLogout(){
             console.log(response);
         }
     });
+}
+function showSignup() {
+    document.getElementById("login-section").style.display = "none";
+    let signup = document.getElementById("signup-section");
+    signup.style.display = "flex";
+    signup.scrollIntoView({ behavior: "smooth" });
+}
+
+function showLogin() {
+    document.getElementById("signup-section").style.display = "none";
+    let login = document.getElementById("login-section");
+    login.style.display = "flex";
+    login.scrollIntoView({ behavior: "smooth" });
 }

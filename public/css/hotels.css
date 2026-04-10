@@ -1,0 +1,64 @@
+.hotels-container {
+    padding: 40px 50px;
+    background: #f9f9f9;
+}
+
+.search-filter {
+    display: flex;
+    gap: 10px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.search-btn {
+    background: #ff7a00;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.hotels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.hotel-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.hotel-image {
+    height: 200px;
+    background-size: cover;
+    position: relative;
+}
+
+.price-tag {
+    position: absolute;
+    bottom: 15px;
+    right: 0;
+    background: #ff7a00;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px 0 0 20px;
+}
+
+.hotel-details {
+    padding: 20px;
+}
+
+.book-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ff7a00;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}

@@ -7,7 +7,17 @@
     <link rel="stylesheet" href="../css/style.css">
   </head>
   <body>
-    <header id="main-header"></header>
+    <header>
+      <nav class="navbar">
+        <h2 class="logo">Gateway to Kanya Kumari</h2>
+        <ul class="menu">
+          <li><a href="#">Home</a></li>
+          <li><a href="#features-section">Features</a></li>
+          <li><a href="#login-section">Login</a></li>
+          <li><a href="#footer">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
@@ -58,7 +68,7 @@
       <div class="login-card">
         <h2>Welcome Back</h2>
         <p>Login to access your bookings & artisan orders</p>
-        <h3 id="notification" style="color: red;"></h3>
+        <h3 id="login-notification"></h3>
         <form id="login-form">
           <div class="input-group">
             <label for="email">Email</label>
@@ -70,7 +80,44 @@
           </div>
           <button type="button" class="login-btn" onclick="userLogin()">Login</button>
         </form>
-        <p class="signup-link">Don't have an account? <a href="/signup">Sign Up</a></p>
+        <p class="signup-link">Don't have an account? <a href="#signup-section" onclick="showSignup()">Sign Up</a></p>
+      </div>
+    </section>
+    <!-- Signup Section -->
+    <section id="signup-section" class="login-container" style="display: none;">
+      <div class="login-card">
+        <h2>Start Your Journey</h2>
+        <p>Create an account to save your favorite spots and artisan orders</p>
+        <h3 id="signup-notification"></h3>
+        <form id="signup-form">
+          <div class="input-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+          </div>
+          <div class="input-group">
+            <label for="signup-email">Email</label>
+            <div style="position: relative;">
+              <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+              <span id="match-indicator"></span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="password" required>
+          </div>
+          <div class="input-group">
+            <label for="confirm-password">Confirm Password</label>
+            <div style="position: relative;">
+              <input type="password" id="confirm-password" name="confirm-password" required>
+              <span id="password-match-indicator"></span>
+            </div>
+          </div>
+          <button type="button" class="login-btn" onclick="userRegister()">Join Now</button>
+        </form>
+         <p class="signup-link">
+          Already a member?
+          <a href="#login-section" onclick="showLogin()">Login here</a>
+        </p>
       </div>
     </section>
     <footer id="main-footer"></footer>

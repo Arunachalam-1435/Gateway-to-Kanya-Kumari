@@ -13,10 +13,10 @@ function getUserLocation(){
 }
 
 function success(position) {
-    //const lat = position.coords.latitude;
-    //const lon = position.coords.longitude;
-    const lat = 10.422904499999998;
-    const lon = 77.884921;
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    //const lat = 10.422904499999998;
+    //const lon = 77.884921;
 
     var m = document.getElementById("map");
     m.setAttribute("style", "height: 180px");

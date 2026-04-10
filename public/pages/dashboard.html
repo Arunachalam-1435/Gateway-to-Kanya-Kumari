@@ -14,6 +14,7 @@
     <nav class="navbar">
       <h2 class="logo">Gateway to Kanya Kumari</h2>
       <ul class="menu">
+        <li><a href="#">Home</a></li>
         <li><a href="/dashboard#features-section">Features</a></li>
         <li><a href="/dashboard#main-footer">Contact</a></li>
         <li>
@@ -37,25 +38,31 @@
             <button class="logout-btn" onclick="userLogout()">Logout</button>
         </section>
         <div id="map"></div>
-        <!-- Feature Cards Row (Same style as Home) -->
         <section class="features-grid" id="features-section">
-            <!-- E-commerce Card -->
+            <!-- Artisan Market -->
             <div class="feature-card" onclick="window.location.href='/shop'">
                 <div class="card-icon">🛍️</div>
                 <h3>Artisan Market</h3>
                 <p>Shop authentic handicrafts from local Kanyakumari artisans.</p>
                 <button>Go to Shop</button>
             </div>
-            <!-- Tourist Places Card -->
+            <!-- Tourist Places -->
             <div class="feature-card" onclick="window.location.href='/places'">
                 <div class="card-icon">🏛️</div>
                 <h3>Tourist Spots</h3>
                 <p>Explore history, timings, and entry fees for all attractions.</p>
                 <button>Explore Now</button>
             </div>
-            <!-- Hotel Booking Card -->
-            <div class="feature-card" onclick="window.location.href='/my-activity'">
+            <!-- NEW: Hotel Booking Card -->
+            <div class="feature-card" onclick="window.location.href='/hotels'">
                 <div class="card-icon">🏨</div>
+                <h3>Book a Stay</h3>
+                <p>Find the best ocean-view hotels and budget stays nearby.</p>
+                <button>Find Hotels</button>
+            </div>
+            <!-- My Activity/Bookings -->
+            <div class="feature-card" onclick="window.location.href='/my-activity'">
+                <div class="card-icon">🗓️</div>
                 <h3>My Bookings</h3>
                 <p>Manage your hotel stays and view upcoming reservations.</p>
                 <button>View Bookings</button>
