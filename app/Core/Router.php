@@ -4,6 +4,7 @@ namespace App\Core;
 use App\Controllers\PlaceController;
 use App\Controllers\HotelController;
 use App\Controllers\UserController;
+use App\Controllers\ProductController;
 class Router{
     public function dispatch(string $method, ?string $path1, ?string $path2, ?string $id):void{
         switch($path1){
@@ -69,6 +70,10 @@ class Router{
                 break;
             case "hotels":
                 require __DIR__.'/../../public/pages/hotels.html';
+                break;
+            case "products":
+                $this->controller = new ProductController();
+                $this->controller->productRequest($method);
                 break;
             default:
                 require __DIR__.'/../../public/pages/404.html';

@@ -23,6 +23,14 @@ CREATE TABLE business.hotels (
     location GEOGRAPHY(POINT, 4326) NOT NULL
 );
 
+CREATE TABLE business.shop (
+    id SERIAL PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    price INT NOT NULL,
+    quantity INT,
+    img_src TEXT NOT NULL
+)
+
 CREATE TABLE users.feedbacks (
     id SERIAL PRIMARY KEY,
     user_id INT,

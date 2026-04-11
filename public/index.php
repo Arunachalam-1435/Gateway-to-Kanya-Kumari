@@ -6,7 +6,8 @@ session_start();
 require __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__.'/../');
 $dotenv->load();
-$parts = explode("/", $_SERVER['REQUEST_URI']);
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$parts = explode("/", $uri);
 $router = new Router();
 
 if(empty($parts[1])){

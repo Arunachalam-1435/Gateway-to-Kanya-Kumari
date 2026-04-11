@@ -9,62 +9,29 @@
 </head>
 <body>
     <header id="header"></header>
-    <div class="shop-container">
-        <!-- Sidebar Filters -->
-        <aside class="shop-sidebar">
-            <h3>Categories</h3>
-            <ul>
-                <li><input type="checkbox" id="seashell"> <label for="seashell">Seashell Art</label></li>
-                <li><input type="checkbox" id="wood"> <label for="wood">Wood Carvings</label></li>
-                <li><input type="checkbox" id="textile"> <label for="textile">Handloom</label></li>
-            </ul>
-            <hr>
-            <h3>Price Range</h3>
-            <input type="range" min="100" max="5000" value="2500" class="price-slider">
-            <p>Under ₹2500</p>
-        </aside>
-
-        <!-- Product Grid -->
-        <main class="product-area">
-            <div class="shop-header">
-                <h2>Local Handicrafts</h2>
-                <span class="item-count">12 Items Found</span>
-            </div>
-
-            <div class="product-grid">
-                <!-- Product Card 1 -->
-                <div class="product-card">
-                    <div class="product-image">🐚</div>
-                    <div class="product-info">
-                        <h4>Polished Conch Shell</h4>
-                        <p class="price">₹450</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-
-                <!-- Product Card 2 -->
-                <div class="product-card">
-                    <div class="product-image">🗿</div>
-                    <div class="product-info">
-                        <h4>Wooden Statue</h4>
-                        <p class="price">₹1,200</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-
-                <!-- Product Card 3 -->
-                <div class="product-card">
-                    <div class="product-image">👕</div>
-                    <div class="product-info">
-                        <h4>Traditional Handloom</h4>
-                        <p class="price">₹850</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+    <!-- Main Marketplace Area -->
+    <main class="shop-container">
+        <div class="shop-header">
+            <h2>Handcrafted in Kanyakumari</h2>
+            <p>Support local artisans, brought to you by Gateway to Kanya Kumari.</p>
+        </div>
+        <!-- This is where your JS will inject the product cards -->
+        <div id="product-container" class="product-grid">
+            <!-- 
+               Your JS should inject this structure:
+               <div class="product-card">
+                   <img src="URL" alt="Name" class="product-img">
+                   <div class="product-info">
+                       <h3>Name</h3>
+                       <p class="price">₹Price</p>
+                       <span class="stock-info">Quantity Units Left</span>
+                       <button class="add-to-cart-btn">Add to Cart</button>
+                   </div>
+               </div>
+            -->
+        </div>
+    </main>
     <footer id="main-footer"></footer>
-    <script src="../js/page.js"></script>
+    <script type="module" src="../js/page.js"></script>
 </body>
 </html>

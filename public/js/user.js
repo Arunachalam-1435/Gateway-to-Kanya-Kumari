@@ -15,12 +15,31 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     })
 });
-function openTab(tabName) {
+
+export function openTab(tabName, button) {
     // Hide all content
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.tab-content')
+        .forEach(tab => tab.classList.remove('active'));
     // Remove active class from buttons
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-btn')
+        .forEach(btn => btn.classList.remove('active'));
     // Show current
     document.getElementById(tabName).classList.add('active');
-    event.currentTarget.classList.add('active');
+    if(button) button.classList.add('active');
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".tab-btn")
+        .forEach(btn => {
+            btn.addEventListener("click", () => {
+                const tabName = btn.dataset.tab;
+                openTab(tabName, btn);
+            });
+        });
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+    if(tab){
+        const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+        if (btn) openTab(tab, btn);
+    }
+});

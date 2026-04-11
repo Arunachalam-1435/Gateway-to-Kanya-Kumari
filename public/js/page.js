@@ -1,3 +1,4 @@
+import {openTab} from "../js/user.js";
 async function loadComponent(elementId, filePath) {
     try {
         const response = await fetch(filePath);
@@ -12,8 +13,53 @@ async function loadComponent(elementId, filePath) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadComponent("main-header", "../includes/main-header.html");
-    loadComponent("header", '../includes/header.html');
-    loadComponent("main-footer", "../includes/footer.html");
+document.addEventListener("DOMContentLoaded", async () => {
+    await Promise.all([
+        loadComponent("main-header", "../includes/main-header.html"),
+        loadComponent("header", '../includes/header.html'),
+        loadComponent("main-footer", "../includes/footer.html")
+    ]);
+    initShop();
+    addProducts();
 });
+
+function initShop(){
+    var menu = document.getElementById("ul");
+    var cart = document.getElementById("cart");
+    if (menu && !cart){
+        var newList = document.createElement("li");
+        newList.setAttribute("id", "cart");
+        var cart = document.createElement("a");
+        cart.setAttribute("href", "/my-activity?tab=orders");
+        cart.textContent = "Cart";
+        newList.appendChild(cart);
+        menu.appendChild(newList);
+    }
+}
+
+function addProducts(){
+    var card = document.getElementById("product-container");
+    if(!card) return;
+    fetch("http://localhost:8000/products")
+    .then(response => response.json())
+    .then(data => {
+        if(data){
+            data.forEach(product => {
+                card.innerHTML += `
+                    <div class="product-card">
+                    <img src="${product.img_src}" alt="${product.name}" class="product-img">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="price">₹${product.price}</p>
+                        <span class="stock-info">${product.quantity} units available</span>
+                        <button class="add-to-cart-btn" onclick="addToCart('${product.name}')">Add to Cart</button>
+                    </div>
+                    </div>`;
+            });
+            console.log(data);
+        }
+        else{
+            console.log("No Products Found");
+        }
+    });
+}

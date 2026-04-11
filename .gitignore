@@ -4,3 +4,5 @@ vendor/*
 .env
 #ignoring .vscode directory
 .vscode/*
+#ignoring images 
+public/images/*
