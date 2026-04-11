@@ -1,4 +1,3 @@
-import {openTab} from "../js/user.js";
 async function loadComponent(elementId, filePath) {
     try {
         const response = await fetch(filePath);
@@ -21,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]);
     initShop();
     addProducts();
+    addPlaces();
 });
 
 function initShop(){
@@ -56,10 +56,37 @@ function addProducts(){
                     </div>
                     </div>`;
             });
-            console.log(data);
         }
         else{
             console.log("No Products Found");
         }
     });
 }
+
+function addPlaces(){
+    var place = document.getElementById("places-list");
+    fetch("http://localhost:8000/api/places")
+    .then(response => response.json())
+    .then(data => {
+        if(data){
+            data.slice(0,3).forEach(p => {
+                place.innerHTML += `
+                    <div class="place-card">
+                        <img src="${p.img_src}" alt="${p.name}" class="place-img">
+                        <div class="place-content">
+                            <h3>${p.name}</h3>
+                            <p>${p.description}</p>
+                            <div class="place-info">
+                                <span>🕒 ${p.timing}</span>
+                                <span>🎟️ ${p.fee}</span>
+                            </div>
+                            <button class="dir-btn">
+                                Get Directions
+                            </button>
+                        </div>
+                    </div>`;
+            })
+        }
+    });
+}
+    /*onclick="openRoute('${p.lat}', '${place.lng}', '${place.name}')"*/

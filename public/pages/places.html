@@ -10,57 +10,27 @@
 <body>
     <header id="header"></header>
     <main class="places-container">
-        <section class="places-hero">
-            <h1>Discover Kanyakumari</h1>
-            <p>Explore the landmarks where three oceans meet.</p>
-        </section>
-        <div class="places-grid">
-            <!-- Place 1: Vivekananda Rock -->
-            <div class="place-card">
-                <div class="place-image rock-memorial"></div>
-                <div class="place-content">
-                    <span class="category-tag">Landmark</span>
-                    <h3>Vivekananda Rock Memorial</h3>
-                    <p>A sacred monument built on a distinct rock island where Swami Vivekananda meditated.</p>
-                    <div class="place-info">
-                        <span>🕒 8:00 AM - 4:00 PM</span>
-                        <span>🎟️ ₹70 (Ferry + Entry)</span>
-                    </div>
-                    <button class="dir-btn" onclick="openRouteDialog()">Get Directions</button>
-                </div>
+        <!-- Main Grid Container -->
+          <div class="places-header">
+                <h1>Explore Kanyakumari</h1>
+                <p>Discover breathtaking landmarks where three oceans meet, brought to you by Gateway to Kanya Kumari.</p>
             </div>
-            <!-- Place 2: Thiruvalluvar Statue -->
-            <div class="place-card">
-                <div class="place-image statue-memorial"></div>
-                <div class="place-content">
-                    <span class="category-tag">Statue</span>
-                    <h3>Thiruvalluvar Statue</h3>
-                    <p>A 133-foot tall stone sculpture of the famous Tamil poet and philosopher.</p>
-                    <div class="place-info">
-                        <span>🕒 9:00 AM - 4:00 PM</span>
-                        <span>🎟️ Included in Ferry</span>
-                    </div>
-                    <button class="dir-btn" onclick="openRouteDialog()">Get Directions</button>
+        <div id="places-list" class="places-grid">
+        </div>
+        <div id="route-modal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="target-place-name">Navigation</h3>
+                    <button class="close-modal" onclick="document.getElementById('route-modal').style.display='none'">&times;</button>
                 </div>
-            </div>
-            <!-- Place 3: Bhagavathy Amman Temple -->
-            <div class="place-card">
-                <div class="place-image temple-memorial"></div>
-                <div class="place-content">
-                    <span class="category-tag">Temple</span>
-                    <h3>Bhagavathy Amman Temple</h3>
-                    <p>A 3000-year-old temple dedicated to Goddess Kumari Amman at the shore.</p>
-                    <div class="place-info">
-                        <span>🕒 4:30 AM - 8:30 PM</span>
-                        <span>🎟️ Free Entry</span>
-                    </div>
-                    <button class="dir-btn" onclick="openRouteDialog()">Get Directions</button>
+                <div id="routing-map" style="height: 100%; width: 100%;"></div>
+                <div class="modal-footer">
+                    <p>Showing route from your current location</p>
                 </div>
             </div>
         </div>
     </main>
     <footer id="main-footer"></footer>
     <script src="../js/page.js"></script>
-    <script src="../js/script.js"></script>
 </body>
 </html>

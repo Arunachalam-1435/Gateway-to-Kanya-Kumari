@@ -1,99 +1,157 @@
+/* Container & Grid Setup */
 .places-container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.places-hero {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.places-hero h1 {
-    color: #ff7a00;
-    font-size: 36px;
-    margin-bottom: 10px;
+    margin: 40px auto;
+    padding: 0px 20px;
 }
 
 .places-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 30px;
 }
 
+/* Place Card Styling */
 .place-card {
     background: white;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
 }
 
 .place-card:hover {
     transform: translateY(-10px);
 }
 
-.place-image {
-    height: 200px;
-    background-color: #eee;
-    background-size: cover;
-    background-position: center;
+.place-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
 }
-
-/* Add your images here or use placeholders */
-.rock-memorial { background-image: url('../assets/rock-memorial.jpg'); }
-.statue-memorial { background-image: url('../assets/thiruvalluvar-statue.webp'); }
-.temple-memorial { background-image: url('../assets/temple.jpg'); }
 
 .place-content {
     padding: 25px;
-}
-
-.category-tag {
-    background: #fdf2e9;
-    color: #ff7a00;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-.place-content h3 {
-    margin: 15px 0 10px;
-    color: #333;
-}
-
-.place-content p {
-    color: #666;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .place-info {
     display: flex;
     justify-content: space-between;
     font-size: 13px;
-    font-weight: bold;
-    color: #444;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    font-weight: 600;
+    color: #555;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    margin-top: auto;
     margin-bottom: 20px;
 }
 
+/* Direction Button */
 .dir-btn {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: #ff7a00;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s ease;
 }
 
 .dir-btn:hover {
     background: #e65c00;
+}
+
+/* --- Map Modal Styles --- */
+.modal-overlay {
+    display: none; /* Hidden by default; JS will set to 'flex' */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 900px;
+    height: 80vh;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ff7a00;
+    color: white;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* The Map Container */
+#routing-map {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-footer {
+    padding: 10px 25px;
+    font-size: 12px;
+    color: #666;
+    background: #fdf2e9;
+    text-align: center;
+}
+
+/* Custom styling for Leaflet Routing controls inside our modal */
+.leaflet-routing-container {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-family: inherit;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.places-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.places-header h1 {
+    color: #ff7a00;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.places-header p {
+    color: #666;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
 }

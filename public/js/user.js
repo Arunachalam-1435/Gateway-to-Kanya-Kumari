@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 });
 
-export function openTab(tabName, button) {
+function openTab(tabName, button) {
     // Hide all content
     document.querySelectorAll('.tab-content')
         .forEach(tab => tab.classList.remove('active'));
