@@ -11,10 +11,29 @@ CREATE TABLE users.users (
     password TEXT NOT NULL
 );
 
+CREATE TABLE users.orders (
+    order_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    product_name TEXT NOT NULL,
+    price INT NOT NULL,
+    order_date TIMESTAMP NOT NULL,
+    status TEXT DEFAULT 'pending',
+    
+    -- This links the order to the specific user
+    CONSTRAINT fk_user 
+        FOREIGN KEY(user_id) 
+        REFERENCES users.users(id) 
+        ON DELETE CASCADE
+);
+
 CREATE TABLE geo.tourist_places (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    location  GEOGRAPHY(POINT, 4326)
+    location  GEOGRAPHY(POINT, 4326),
+    img_src TEXT,
+    timing TEXT,
+    fee TEXT,
+    description TEXT
 );
 
 CREATE TABLE business.hotels (

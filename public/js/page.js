@@ -18,24 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadComponent("header", '../includes/header.html'),
         loadComponent("main-footer", "../includes/footer.html")
     ]);
-    initShop();
     addProducts();
     addPlaces();
 });
-
-function initShop(){
-    var menu = document.getElementById("ul");
-    var cart = document.getElementById("cart");
-    if (menu && !cart){
-        var newList = document.createElement("li");
-        newList.setAttribute("id", "cart");
-        var cart = document.createElement("a");
-        cart.setAttribute("href", "/my-activity?tab=orders");
-        cart.textContent = "Cart";
-        newList.appendChild(cart);
-        menu.appendChild(newList);
-    }
-}
 
 function addProducts(){
     var card = document.getElementById("product-container");
@@ -52,7 +37,7 @@ function addProducts(){
                         <h3>${product.name}</h3>
                         <p class="price">₹${product.price}</p>
                         <span class="stock-info">${product.quantity} units available</span>
-                        <button class="add-to-cart-btn" onclick="addToCart('${product.name}')">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCart('${product.name}', ${product.price})">Buy</button>
                     </div>
                     </div>`;
             });
@@ -65,6 +50,7 @@ function addProducts(){
 
 function addPlaces(){
     var place = document.getElementById("places-list");
+    if(!place) return;
     fetch("http://localhost:8000/api/places")
     .then(response => response.json())
     .then(data => {
@@ -90,3 +76,28 @@ function addPlaces(){
     });
 }
     /*onclick="openRoute('${p.lat}', '${place.lng}', '${place.name}')"*/
+function addToCart(product_name, product_price){
+    const date = new Date();
+    date.setDate(date.getDate() +7);
+    const timestamp = date.toISOString().slice(0, 19).replace('T', ' ');
+    fetch("http://localhost:8000/orders",{
+        method: "POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            product_name: product_name,
+            price: product_price,
+            order_date: timestamp
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data['status'] !== "success"){
+            console.log(data['message']);
+        }
+        else{
+            alert(data['message']);
+        }
+    })
+}

@@ -42,4 +42,24 @@ document.addEventListener("DOMContentLoaded", () => {
         const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
         if (btn) openTab(tab, btn);
     }
+    loadOrder();
 });
+
+function loadOrder(){
+    const ordersCard = document.getElementById("orders");
+    if(!ordersCard) return;
+        fetch("http://localhost:8000/orders")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(order => {
+                ordersCard.innerHTML += `<div class="activity-card">
+                    <div class="status-badge ${order.status.toLowerCase()}">${order.status}</div>
+                    <div class="card-details">
+                        <p>📦 ${order.product_name}</p>
+                        <p>💰 Total: ₹${order.price}</p>
+                        <p>📅 Delivery on: ${order.order_date}</p>
+                    </div>
+                </div>`;
+            });
+        });
+}

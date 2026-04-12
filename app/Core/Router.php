@@ -75,6 +75,10 @@ class Router{
                 $this->controller = new ProductController();
                 $this->controller->productRequest($method);
                 break;
+            case "orders":
+                $this->controller = new UserController();
+                $this->controller->ordersRequest($method);
+                break;
             default:
                 require __DIR__.'/../../public/pages/404.html';
                 break;
