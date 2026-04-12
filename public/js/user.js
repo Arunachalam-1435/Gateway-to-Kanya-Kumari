@@ -51,6 +51,12 @@ function loadOrder(){
         fetch("http://localhost:8000/orders")
         .then(response => response.json())
         .then(data => {
+            if(data.status && data.status !== "success"){
+                ordersCard.innerHTML = `<h1 style="color: red;display: flex;justify-content: center;align-items: center;">
+                ${data['message']}</h1>`;
+                return;
+            }
+            
             data.forEach(order => {
                 ordersCard.innerHTML += `<div class="activity-card">
                     <div class="status-badge ${order.status.toLowerCase()}">${order.status}</div>
