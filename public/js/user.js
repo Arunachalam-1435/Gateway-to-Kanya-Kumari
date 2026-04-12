@@ -43,29 +43,63 @@ document.addEventListener("DOMContentLoaded", () => {
         if (btn) openTab(tab, btn);
     }
     loadOrder();
+    loadRooms();
 });
 
 function loadOrder(){
     const ordersCard = document.getElementById("orders");
     if(!ordersCard) return;
-        fetch("http://localhost:8000/orders")
-        .then(response => response.json())
-        .then(data => {
-            if(data.status && data.status !== "success"){
-                ordersCard.innerHTML = `<h1 style="color: red;display: flex;justify-content: center;align-items: center;">
-                ${data['message']}</h1>`;
-                return;
-            }
-            
-            data.forEach(order => {
-                ordersCard.innerHTML += `<div class="activity-card">
-                    <div class="status-badge ${order.status.toLowerCase()}">${order.status}</div>
-                    <div class="card-details">
-                        <p>📦 ${order.product_name}</p>
-                        <p>💰 Total: ₹${order.price}</p>
-                        <p>📅 Delivery on: ${order.order_date}</p>
-                    </div>
-                </div>`;
-            });
+
+    // Reset content to avoid duplicates on re-renders
+    ordersCard.innerHTML = ""; 
+
+    fetch("http://localhost:8000/orders")
+    .then(response => response.json())
+    .then(data => {
+        if(data.status && data.status !== "success"){
+            ordersCard.innerHTML = `<h1 style="color: red; display: flex; justify-content: center; align-items: center;">
+            ${data['message']}</h1>`;
+            return;
+        }
+
+        // Check if data is empty
+        if (!data || data.length === 0) {
+            ordersCard.innerHTML = "<h3>No orders found.</h3>";
+            return;
+        }
+
+        data.forEach(order => {
+            ordersCard.innerHTML = `<div class="activity-card">
+                <div class="status-badge ${order.status.toLowerCase()}">${order.status}</div>
+                <div class="card-details">
+                    <p>📦 ${order.product_name}</p>
+                    <p>💰 Total: ₹${order.price}</p>
+                    <p>📅 Delivery on: ${order.order_date}</p>
+                </div>
+            </div>`;
         });
+    });
+}
+
+function loadRooms(){
+    const card = document.getElementById("bookings");
+    if(!card) return;
+    card.innerHTML = "";
+    const rooms = JSON.parse(localStorage.getItem('rooms'));
+    if(!rooms){
+        card.innerHTML = `<h1 style="color: red;display: flex;justify-content: center;align-items: center;">
+                No rooms booked</h1>`;
+                return;
+    }
+    card.innerHTML = `<div class="activity-card">
+                <div class="status-badge confirmed">Confirmed</div>
+                <div class="card-details">
+                    <h3>${rooms.name}</h3>
+                    <p>📅 15th April - 17th April 2026</p>
+                    <p>👥 2 Adults, 1 Room</p>
+                </div>
+                <div class="card-actions">
+                    <button class="cancel-btn">Cancel</button>
+                </div>
+            </div>`;
 }

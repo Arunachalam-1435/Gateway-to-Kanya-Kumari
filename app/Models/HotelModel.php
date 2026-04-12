@@ -20,7 +20,7 @@ class HotelModel{
 		}
 	}
 	public function getAllHotels():array{
-		$query = "SELECT id, name, ST_Y(location::geometry) AS lat, ST_X(location::geometry) AS lon FROM business.hotels;";
+		$query = "SELECT * FROM business.hotels ORDER BY id ASC;";
 		$result = $this->pdo->query($query);
 		$result = $result->fetchAll();
 		return $result;

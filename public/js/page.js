@@ -18,8 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         loadComponent("header", '../includes/header.html'),
         loadComponent("main-footer", "../includes/footer.html")
     ]);
-    addProducts();
-    addPlaces();
+    if(document.getElementById("product-container")) addProducts();
+    if(document.getElementById("places-list")) addPlaces();
+    if(document.getElementById("hotel-grid")) addHotels();
 });
 
 function addProducts(){
@@ -75,7 +76,7 @@ function addPlaces(){
         }
     });
 }
-    /*onclick="openRoute('${p.lat}', '${place.lng}', '${place.name}')"*/
+    
 function addToCart(product_name, product_price){
     const date = new Date();
     date.setDate(date.getDate() +7);
@@ -100,4 +101,36 @@ function addToCart(product_name, product_price){
             alert(data['message']);
         }
     })
+}
+
+function addHotels(){
+    var card = document.getElementById("hotel-grid");
+    if(!card) return;
+    fetch("http://localhost:8000/api/hotels")
+    .then(response => response.json())
+    .then(data => {
+        if(data){
+            data.slice(0,3).forEach(hotel => {
+                card.innerHTML += `
+                    <div class="hotel-card">
+                    <img src="${hotel.img_src}" alt="${hotel.name}" class="hotel-img">
+                    <div class="hotel-info">
+                        <h3>${hotel.name}</h3>
+                        <p class="price">₹${hotel.fee}</p>
+                        <span class="room-info">${hotel.available_rooms} rooms available</span>
+                        <button class="book-hotel-btn" onclick="bookRoom('${hotel.name}')">Book hotel</button>
+                    </div>
+                    </div>`;
+            });
+        }
+        else{
+            console.log("No Hotels Found");
+        }
+    });
+}
+
+function bookRoom(name){
+    var rooms = { name: name};
+    localStorage.setItem('rooms', JSON.stringify(rooms));
+    alert("Hotel booked");
 }

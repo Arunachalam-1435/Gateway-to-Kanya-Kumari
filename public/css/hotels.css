@@ -1,64 +1,99 @@
-.hotels-container {
-    padding: 40px 50px;
-    background: #f9f9f9;
+.hotel-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-.search-filter {
-    display: flex;
-    gap: 10px;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
+.hotel-header {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-.search-btn {
-    background: #ff7a00;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
+.hotel-header h2 {
+    color: #ff7a00;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
 }
 
-.hotels-grid {
+/* The Grid */
+.hotel-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
 }
 
+/* The Card */
 .hotel-card {
-    background: white;
-    border-radius: 15px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hotel-image {
-    height: 200px;
-    background-size: cover;
-    position: relative;
+.hotel-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-.price-tag {
-    position: absolute;
-    bottom: 15px;
-    right: 0;
-    background: #ff7a00;
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px 0 0 20px;
-}
-
-.hotel-details {
-    padding: 20px;
-}
-
-.book-btn {
+/* Image Handling */
+.hotel-img {
     width: 100%;
-    padding: 12px;
+    height: 220px;
+    object-fit: cover; /* Ensures artisan product photos aren't distorted */
+}
+
+/* Info Section */
+.hotel-info {
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.hotel-info h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.price {
+    color: #ff7a00;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.room-info {
+    font-size: 0.85rem;
+    color: #27ae60;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* Add to Cart Button */
+.book-hotel-btn {
     background: #ff7a00;
     color: white;
     border: none;
+    padding: 12px 25px;
     border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
+    margin-top: auto; /* Pushes button to bottom if name lengths differ */
+    transition: background 0.2s ease;
+}
+
+.book-hotel-btn:hover {
+    background: #e65c00;
+}
+
+/* Responsive Tweak */
+@media (max-width: 600px) {
+    .hotel-grid {
+        grid-template-columns: 1fr; /* Single column on small mobile */
+    }
 }
