@@ -66,7 +66,7 @@ function addPlaces(){
                                 <span>🕒 ${p.timing}</span>
                                 <span>🎟️ ${p.fee}</span>
                             </div>
-                            <button class="dir-btn">
+                            <button class="dir-btn" onclick="openRoute(${p.lat}, ${p.lon}, '${p.name}')">
                                 Get Directions
                             </button>
                         </div>

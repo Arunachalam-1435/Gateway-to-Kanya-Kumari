@@ -190,19 +190,6 @@ body{
   font-weight: bold;
 }
 
-/* Eco-Zone Highlight */
-.eco-card {
-  border: 2px dashed #4CAF50;
-  background: #f1f8f1;
-}
-
-#eco-status {
-  display: block;
-  margin-top: 10px;
-  font-weight: bold;
-  color: #2e7d32;
-  font-size: 14px;
-}
 
 /* Footer */
 footer{

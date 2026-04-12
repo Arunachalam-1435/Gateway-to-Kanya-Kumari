@@ -6,6 +6,10 @@
     <title>Tourist Attractions - Kanyakumari</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/places.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 </head>
 <body>
     <header id="header"></header>
@@ -23,7 +27,7 @@
                     <h3 id="target-place-name">Navigation</h3>
                     <button class="close-modal" onclick="document.getElementById('route-modal').style.display='none'">&times;</button>
                 </div>
-                <div id="routing-map" style="height: 100%; width: 100%;"></div>
+                <div id="map" style="height: 100%; width: 100%;"></div>
                 <div class="modal-footer">
                     <p>Showing route from your current location</p>
                 </div>
@@ -32,5 +36,6 @@
     </main>
     <footer id="main-footer"></footer>
     <script src="../js/page.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>
