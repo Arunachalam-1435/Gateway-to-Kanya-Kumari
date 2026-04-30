@@ -39,7 +39,7 @@ CREATE TABLE geo.tourist_places (
 CREATE TABLE business.hotels (
     id SERIAL PRIMARY KEY NOT NULL,
     name TEXT NOT NULL,
-    location GEOGRAPHY(POINT, 4326) NOT NULL
+    location GEOGRAPHY(POINT, 4326) NOT NULL,
     img_src TEXT,
     fee TEXT,
     available_rooms INT
@@ -51,7 +51,7 @@ CREATE TABLE business.shop (
     price INT NOT NULL,
     quantity INT,
     img_src TEXT NOT NULL
-)
+);
 
 CREATE TABLE users.feedbacks (
     id SERIAL PRIMARY KEY,
