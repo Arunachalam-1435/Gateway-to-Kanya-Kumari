@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     await Promise.all([
         loadComponent("main-header", "../includes/main-header.html"),
         loadComponent("header", '../includes/header.html'),
-        loadComponent("main-footer", "../includes/footer.html")
+        loadComponent("main-footer", "../includes/footer.html"),
+        loadComponent("header-2", "../includes/main-header-2.html")
     ]);
     if(document.getElementById("product-container")) addProducts();
     if(document.getElementById("places-list")) addPlaces();
@@ -130,7 +131,8 @@ function addHotels(){
 }
 
 function bookRoom(name){
-    var rooms = { name: name};
+    let rooms = JSON.parse(localStorage.getItem('rooms')) || [];
+    rooms.push({name: name});
     localStorage.setItem('rooms', JSON.stringify(rooms));
     alert("Hotel booked");
 }

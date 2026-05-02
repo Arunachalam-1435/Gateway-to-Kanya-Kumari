@@ -69,7 +69,7 @@ function loadOrder(){
         }
 
         data.forEach(order => {
-            ordersCard.innerHTML = `<div class="activity-card">
+            ordersCard.innerHTML += `<div class="activity-card">
                 <div class="status-badge ${order.status.toLowerCase()}">${order.status}</div>
                 <div class="card-details">
                     <p>📦 ${order.product_name}</p>
@@ -85,21 +85,31 @@ function loadRooms(){
     const card = document.getElementById("bookings");
     if(!card) return;
     card.innerHTML = "";
-    const rooms = JSON.parse(localStorage.getItem('rooms'));
-    if(!rooms){
+    const roomsList = JSON.parse(localStorage.getItem('rooms'));
+    if(!roomsList || roomsList.length === 0){
         card.innerHTML = `<h1 style="color: red;display: flex;justify-content: center;align-items: center;">
                 No rooms booked</h1>`;
                 return;
     }
-    card.innerHTML = `<div class="activity-card">
+    roomsList.forEach((room,index) =>{
+        card.innerHTML += `<div class="activity-card">
                 <div class="status-badge confirmed">Confirmed</div>
                 <div class="card-details">
-                    <h3>${rooms.name}</h3>
+                    <h3>${room.name}</h3>
                     <p>📅 15th April - 17th April 2026</p>
                     <p>👥 2 Adults, 1 Room</p>
                 </div>
                 <div class="card-actions">
-                    <button class="cancel-btn">Cancel</button>
+                    <button class="cancel-btn" onclick="cancelRoom(${index})">Cancel</button>
                 </div>
             </div>`;
+    });
+}
+
+function cancelRoom(index){
+    let roomsList = JSON.parse(localStorage.getItem('rooms')) || [];
+    roomsList.splice(index, 1);
+    localStorage.setItem('rooms', JSON.stringify(roomsList));
+    loadRooms();
+    alert("Room Cancelled");
 }
