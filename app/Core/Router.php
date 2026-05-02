@@ -15,12 +15,12 @@ class Router{
                 if(!empty($path2)){
                     if($path2 == "places"){
                         $this->p_controller = new PlaceController();
-                        $this->p_controller->placeController($method, $id);
+                        $this->p_controller->placeController($method);
                         break;
                     }
                     elseif($path2 == "hotels"){
                         $this->h_controller = new HotelController();
-                        $this->h_controller->hotelController($method, $id);
+                        $this->h_controller->hotelController($method);
                         break;
                     }
                     else{

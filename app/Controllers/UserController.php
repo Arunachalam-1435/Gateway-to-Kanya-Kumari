@@ -16,10 +16,8 @@ class UserController{
                 ]);
             }
             else{
-                echo json_encode([
-                    "status" => "error",
-                    "redirect" => "/home#login-secion"
-                ]);
+                http_response_code(405);
+                header("Allow: GET");
             }
         }
         else{
@@ -147,7 +145,7 @@ class UserController{
         header("Content-Type: application/json");
         if($method == "POST"){
             $data = json_decode(file_get_contents("php://input"), true);
-            if($_SESSION){
+            if(isset($_SESSION['user_id'])){
                 $result = $this->model->setOrder($_SESSION['user_id'], $data['product_name'], 
                 $data['price'], $data['order_date']);
                 if($result != False){
@@ -174,7 +172,7 @@ class UserController{
             }
         }
         elseif($method == "GET"){
-            if($_SESSION){
+            if(isset($_SESSION['user_id'])){
                 $result = $this->model->getOrders($_SESSION['user_id']);
                 if($result != False){
                     http_response_code(200);

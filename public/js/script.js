@@ -47,7 +47,7 @@ function userRegister(){
         notification.innerText = "Password must have atleast 8 characters";
         notification.setAttribute("style", "color: red;");
     }
-    fetch("http://localhost:8000/register",{
+    fetch("/register",{
         method: "POST",
         headers:{
             "Content-Type": "application/json"
@@ -79,7 +79,7 @@ function userLogin(){
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if(pattern.test(email)){
-        fetch("http://localhost:8000/login",{
+        fetch("/login",{
             method: "POST",
             headers:{
                 "Content-Type": "application/json"
@@ -107,7 +107,7 @@ function userLogin(){
     }
 }
 function userLogout(){
-    fetch("http://localhost:8000/logout",{
+    fetch("/logout",{
         redirect: "follow"
     }).then(response => {
         if(response.redirected){

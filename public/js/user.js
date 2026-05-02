@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    fetch("http://localhost:8000/user")
+    fetch("/user")
     .then(response => response.json())
     .then(data => {
         if(data['status'] !== "success"){
@@ -53,7 +53,7 @@ function loadOrder(){
     // Reset content to avoid duplicates on re-renders
     ordersCard.innerHTML = ""; 
 
-    fetch("http://localhost:8000/orders")
+    fetch("/orders")
     .then(response => response.json())
     .then(data => {
         if(data.status && data.status !== "success"){

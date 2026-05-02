@@ -8,17 +8,6 @@ class HotelModel{
 		$conn = new Database();
         $this->pdo = $conn->connect();
 	}
-	public function getHotel($id):array{
-		$query = "SELECT name, ST_Y(location::geometry) AS lat, ST_X(location::geometry) AS lon FROM business.hotels WHERE id=$id;";
-		$result = $this->pdo->query($query);
-		$result = $result->fetchAll();
-		if(empty($result)){
-			return array();
-		}
-		else{
-			return $result;
-		}
-	}
 	public function getAllHotels():array{
 		$query = "SELECT * FROM business.hotels ORDER BY id ASC;";
 		$result = $this->pdo->query($query);

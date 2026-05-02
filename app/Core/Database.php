@@ -11,7 +11,6 @@ class Database{
 
     public function __construct(){
         $this->host = $_ENV['DB_HOST'];
-        $this->port = 5432;
         $this->db_name = $_ENV['DB_NAME'];
         $this->username = $_ENV['DB_USER'];
         $this->password = $_ENV['DB_PASSWORD'];
@@ -19,8 +18,7 @@ class Database{
     public function connect(): PDO{
         if($this->pdo == null){
             try{
-                //var_dump($this->host);
-                $dsn = "pgsql:host=$this->host;port=$this->port;dbname=$this->db_name";
+                $dsn = "pgsql:host=$this->host;port=5432;dbname=$this->db_name";
                 $this->pdo = new PDO($dsn, $this->username, $this->password,[
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC

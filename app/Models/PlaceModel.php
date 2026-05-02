@@ -8,17 +8,6 @@ class PlaceModel{
 		$conn = new Database();
         $this->pdo = $conn->connect();
 	}
-	public function getPlace($id):array{
-		$query = "SELECT name, ST_Y(location::geometry) AS lat, ST_X(location::geometry) AS lon, img_src, timing, fee, description FROM geo.tourist_places WHERE id=$id;";
-		$result = $this->pdo->query($query);
-		$result = $result->fetchAll();
-		if(empty($result)){
-			return array();
-		}
-		else{
-			return $result;
-		}
-	}
 	public function getAllPlaces():array{
 		$query = "SELECT name, ST_Y(location::geometry) AS lat, ST_X(location::geometry) AS lon, img_src, timing, fee, description FROM geo.tourist_places ORDER BY id ASC ";
 		$result = $this->pdo->query($query);

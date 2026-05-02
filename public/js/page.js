@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 function addProducts(){
     var card = document.getElementById("product-container");
     if(!card) return;
-    fetch("http://localhost:8000/products")
+    fetch("/products")
     .then(response => response.json())
     .then(data => {
         if(data){
@@ -53,7 +53,7 @@ function addProducts(){
 function addPlaces(){
     var place = document.getElementById("places-list");
     if(!place) return;
-    fetch("http://localhost:8000/api/places")
+    fetch("/api/places")
     .then(response => response.json())
     .then(data => {
         if(data){
@@ -82,7 +82,7 @@ function addToCart(product_name, product_price){
     const date = new Date();
     date.setDate(date.getDate() +7);
     const timestamp = date.toISOString().slice(0, 19).replace('T', ' ');
-    fetch("http://localhost:8000/orders",{
+    fetch("/orders",{
         method: "POST",
         headers:{
             "Content-Type": "application/json"
@@ -107,7 +107,7 @@ function addToCart(product_name, product_price){
 function addHotels(){
     var card = document.getElementById("hotel-grid");
     if(!card) return;
-    fetch("http://localhost:8000/api/hotels")
+    fetch("/api/hotels")
     .then(response => response.json())
     .then(data => {
         if(data){
