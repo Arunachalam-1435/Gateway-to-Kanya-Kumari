@@ -192,9 +192,28 @@ class UserController{
                 ]);
             }
         }
+        elseif($method == "DELETE"){
+            $data = json_decode(file_get_contents("php://input"), true);
+            if(isset($_SESSION['user_id'])){
+                $result = $this->model->deleteOrder($_SESSION['user_id'], $data['order_id']);
+                if($result != False){
+                    http_response_code(200);
+                    echo json_encode([
+                        "status" => "success",
+                        "message" => "Order Cancelled"
+                    ]);
+                }
+                else{
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "No orders found"
+                    ]);
+                }
+            }
+        }
         else{
             http_response_code(405);
-            header("Allow: GET, POST");
+            header("Allow: GET, POST, DELETE");
         }
     }
 }

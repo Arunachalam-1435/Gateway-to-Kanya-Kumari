@@ -70,11 +70,14 @@ function loadOrder(){
 
         data.forEach(order => {
             ordersCard.innerHTML += `<div class="activity-card">
-                <div class="status-badge ${order.status.toLowerCase()}">${order.status}</div>
+                <div class="status-badge">${order.status}</div>
                 <div class="card-details">
-                    <p>📦 ${order.product_name}</p>
+                    <h3>${order.product_name}</h3>
                     <p>💰 Total: ₹${order.price}</p>
                     <p>📅 Delivery on: ${order.order_date}</p>
+                </div>
+                <div class="card-actions">
+                    <button class="cancel-btn" onclick="cancelOrder(${order.order_id})">Cancel</button>
                 </div>
             </div>`;
         });
@@ -112,4 +115,26 @@ function cancelRoom(index){
     localStorage.setItem('rooms', JSON.stringify(roomsList));
     loadRooms();
     alert("Room Cancelled");
+}
+
+function cancelOrder(order_id){
+    fetch("/orders",{
+        method: "DELETE",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            order_id: order_id
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data['status'] !== "success"){
+            alert("Something Wrong! Can't cancel order");
+        }
+        else{
+            loadOrder();
+            alert("Order Cancelled Successfully");
+        }
+    })
 }

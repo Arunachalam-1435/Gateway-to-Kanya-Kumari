@@ -80,4 +80,20 @@ class UserModel{
             return false;
         }
     }
+    public function deleteOrder($user_id, $order_id):bool{
+        try{
+            $stmt = $this->pdo->prepare("DELETE FROM users.orders WHERE user_id=:user_id AND order_id=:order_id");
+            $stmt->bindValue(':user_id', $user_id);
+            $stmt->bindValue(':order_id', $order_id);
+            if($stmt->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception $e){
+            return false;
+        }
+    }
 }
