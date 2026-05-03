@@ -16,8 +16,7 @@ class UserController{
                 ]);
             }
             else{
-                http_response_code(405);
-                header("Allow: GET");
+                header("Location:/home#login-section");
             }
         }
         else{

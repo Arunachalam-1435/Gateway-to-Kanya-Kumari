@@ -67,7 +67,7 @@ function userRegister(){
             showLogin();
             login_notification.innerText = "Account Created Successfully";
             login_notification.setAttribute("style", "color: green;");
-            location.replace("http://localhost:8000/home#login-section");
+            location.replace("/home#login-section");
         }
     });
 }
@@ -97,7 +97,7 @@ function userLogin(){
             }
             else{
                 
-                location.replace("http://localhost:8000/dashboard");
+                location.replace("/dashboard");
             }
         });
     }

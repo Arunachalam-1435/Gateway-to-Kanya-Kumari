@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => response.json())
     .then(data => {
         if(data['status'] !== "success"){
-            location.replace(`http://localhost:8000${data['redirect']}`);
+            location.replace(data['redirect']);
         }
         else{
             var username = document.getElementById("display-name");

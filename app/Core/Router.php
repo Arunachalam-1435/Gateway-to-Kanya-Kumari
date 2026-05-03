@@ -6,7 +6,12 @@ use App\Controllers\HotelController;
 use App\Controllers\UserController;
 use App\Controllers\ProductController;
 class Router{
-    public function dispatch(string $method, ?string $path1, ?string $path2, ?string $id):void{
+    private ?PlaceController $p_controller = null;
+    private ?HotelController $h_controller = null;
+    private ?UserController $controller = null;
+    private ?ProductController $prod_controller = null;
+    
+    public function dispatch(string $method, ?string $path1, ?string $path2):void{
         switch($path1){
             case "home":
                 require __DIR__.'/../../public/pages/index.html';
@@ -72,8 +77,8 @@ class Router{
                 require __DIR__.'/../../public/pages/hotels.html';
                 break;
             case "products":
-                $this->controller = new ProductController();
-                $this->controller->productRequest($method);
+                $this->prod_controller = new ProductController();
+                $this->prod_controller->productRequest($method);
                 break;
             case "orders":
                 $this->controller = new UserController();

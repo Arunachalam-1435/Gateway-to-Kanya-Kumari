@@ -19,7 +19,6 @@ if(empty($parts[1])){
 else{
     $path1 = $parts[1] ?? null;
     $path2 = $parts[2] ?? null;
-    $id    = $parts[3] ?? null;
-    $router->dispatch($_SERVER['REQUEST_METHOD'], $path1, $path2, $id);
+    $router->dispatch($_SERVER['REQUEST_METHOD'], $path1, $path2);
     exit;
 }
