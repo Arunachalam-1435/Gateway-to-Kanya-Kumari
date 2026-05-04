@@ -112,7 +112,7 @@ class UserModel{
             
             $stmt2 = $this->pdo->prepare("UPDATE business.hotels SET available_rooms = available_rooms - 1 WHERE name = ?
             AND available_rooms > 0");
-            $stmt->execute([$hotel_name]);
+            $stmt2->execute([$hotel_name]);
             
             if($stmt2->rowCount() === 0){
                 $this->pdo->rollBack();
