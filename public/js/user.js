@@ -88,33 +88,51 @@ function loadRooms(){
     const card = document.getElementById("bookings");
     if(!card) return;
     card.innerHTML = "";
-    const roomsList = JSON.parse(localStorage.getItem('rooms'));
-    if(!roomsList || roomsList.length === 0){
-        card.innerHTML = `<h1 style="color: red;display: flex;justify-content: center;align-items: center;">
-                No rooms booked</h1>`;
+    fetch("/rooms")
+    .then(res => res.json())
+    .then(data => {
+        if(data.status && data.status === "error"){
+            card.innerHTML = `<h1 style="color: red;display: flex;justify-content: center;align-items: center;">
+                ${data.message}</h1>`;
                 return;
-    }
-    roomsList.forEach((room,index) =>{
-        card.innerHTML += `<div class="activity-card">
-                <div class="status-badge confirmed">Confirmed</div>
-                <div class="card-details">
-                    <h3>${room.name}</h3>
-                    <p>📅 15th April - 17th April 2026</p>
-                    <p>👥 2 Adults, 1 Room</p>
-                </div>
-                <div class="card-actions">
-                    <button class="cancel-btn" onclick="cancelRoom(${index})">Cancel</button>
-                </div>
-            </div>`;
+        }
+        data.forEach(room =>{
+            card.innerHTML += `<div class="activity-card">
+                    <div class="status-badge ${room.status}">${room.status}</div>
+                    <div class="card-details">
+                        <h3>${room.hotel_name}</h3>
+                        <p>📅 ${room.check_in.slice(0, 10)} → ${room.check_out.slice(0, 10)}</p>
+                        <p>👥 ${room.person_count}</p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="cancel-btn" onclick="cancelRoom(${room.room_id}, '${room.hotel_name}')">Cancel</button>
+                    </div>
+                </div>`;
+        });
     });
 }
 
-function cancelRoom(index){
-    let roomsList = JSON.parse(localStorage.getItem('rooms')) || [];
-    roomsList.splice(index, 1);
-    localStorage.setItem('rooms', JSON.stringify(roomsList));
-    loadRooms();
-    alert("Room Cancelled");
+function cancelRoom(room_id, hotel_name){
+    fetch("/rooms",{
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            room_id: room_id,
+            hotel_name: hotel_name
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status !== "success"){
+            alert("Something Wrong! Can't cancel room");
+        }
+        else{
+            loadRooms();
+            alert("Room Cancelled");
+        }
+    })
 }
 
 function cancelOrder(order_id){

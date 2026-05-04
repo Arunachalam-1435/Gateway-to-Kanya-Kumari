@@ -111,16 +111,30 @@ function addHotels(){
     .then(response => response.json())
     .then(data => {
         if(data){
+            const today = new Date().toISOString().split('T')[0];
             data.slice(0,3).forEach(hotel => {
-                card.innerHTML += `
-                    <div class="hotel-card">
-                    <img src="${hotel.img_src}" alt="${hotel.name}" class="hotel-img">
-                    <div class="hotel-info">
-                        <h3>${hotel.name}</h3>
-                        <p class="price">₹${hotel.fee}</p>
-                        <span class="room-info">${hotel.available_rooms} rooms available</span>
-                        <button class="book-hotel-btn" onclick="bookRoom('${hotel.name}')">Book hotel</button>
-                    </div>
+                card.innerHTML += `<div class="hotel-card">
+                        <img src="${hotel.img_src}" alt="${hotel.name}" class="hotel-img">
+                        <div class="hotel-info">
+                            <h3>${hotel.name}</h3>
+                            <p class="price">₹${hotel.fee}</p>
+                            <span class="room-info">${hotel.available_rooms} rooms available</span>
+                            <div class="booking-form">
+                                <div class="booking-field">
+                                    <label>Check-in</label>
+                                    <input type="date" class="booking-input" id="checkin-${hotel.id}" min="${today}">
+                                </div>
+                                <div class="booking-field">
+                                    <label>Check-out</label>
+                                    <input type="date" class="booking-input" id="checkout-${hotel.id}" min="${today}">
+                                </div>
+                                <div class="booking-field">
+                                    <label>Guests</label>
+                                    <input type="number" class="booking-input" id="guests-${hotel.id}" min="1" max="10" value="1">
+                                </div>
+                            </div>
+                            <button class="book-hotel-btn" onclick="bookRoom('${hotel.name}', ${hotel.fee}, ${hotel.id})">Book Hotel</button>
+                        </div>
                     </div>`;
             });
         }
@@ -130,9 +144,39 @@ function addHotels(){
     });
 }
 
-function bookRoom(name){
-    let rooms = JSON.parse(localStorage.getItem('rooms')) || [];
-    rooms.push({name: name});
-    localStorage.setItem('rooms', JSON.stringify(rooms));
-    alert("Hotel booked");
+function bookRoom(name, fee, id){
+    var checkin = document.getElementById(`checkin-${id}`).value;
+    var checkout = document.getElementById(`checkout-${id}`).value;
+    var person_count = document.getElementById(`guests-${id}`).value;
+
+    if(!checkin || !checkout){
+        alert("Please select checkin and checkout dates");
+        return;
+    }
+    if(checkout <= checkin){
+        alert("Check out must be after check in");
+        return;
+    }
+    fetch("/rooms", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            hotel_name: name,
+            price: fee,
+            check_in: checkin,
+            check_out: checkout,
+            person_count: person_count
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === "success"){
+            alert(data.message);
+        }
+        else{
+            alert(data.message);
+        }
+    });
 }

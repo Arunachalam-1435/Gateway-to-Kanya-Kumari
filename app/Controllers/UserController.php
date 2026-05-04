@@ -216,4 +216,80 @@ class UserController{
             header("Allow: GET, POST, DELETE");
         }
     }
+    public function roomsRequest($method){
+        header("Content-Type: application/json");
+        if($method == "POST"){
+            $data = json_decode(file_get_contents("php://input"), true);
+            if(isset($_SESSION['user_id'])){
+                $result = $this->model->bookRoom($_SESSION['user_id'], $data['hotel_name'], 
+                $data['price'], $data['check_in'], $data['check_out'], $data['person_count']);
+                if($result != False){
+                    http_response_code(201);
+                    echo json_encode([
+                        "status" => "success", 
+                        "message" => "Room successfully booked"
+                    ]);
+                }
+                else{
+                    http_response_code(500);
+                    echo json_encode([
+                        "status" => "error", 
+                        "message" => "Something went wrong"
+                    ]);
+                }
+            }
+            else{
+                http_response_code(404);
+                echo json_encode([
+                    "status" => "error", 
+                    "message" => "User session is not available. Please login"
+                ]);
+            }
+        }
+        elseif($method == "GET"){
+            if(isset($_SESSION['user_id'])){
+                $result = $this->model->getRoom($_SESSION['user_id']);
+                if($result != False){
+                    http_response_code(200);
+                    echo json_encode($result);
+                }
+                else{
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "No rooms found"
+                    ]);
+                }
+            }
+            else{
+                http_response_code(404);
+                echo json_encode([
+                    "status" => "error", 
+                    "message" => "User session is not available. Please login"
+                ]);
+            }
+        }
+        elseif($method == "DELETE"){
+            if(isset($_SESSION['user_id'])){
+                $data = json_decode(file_get_contents("php://input"), true);
+                $result = $this->model->cancelRoom($_SESSION['user_id'], $data['room_id'], $data['hotel_name']);
+                if($result != False){
+                    http_response_code(200);
+                    echo json_encode([
+                        "status" => "success",
+                        "message" => "Booking Cancelled"
+                    ]);
+                }
+                else{
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "No orders found"
+                    ]);
+                }
+            }
+        }
+        else{
+            http_response_code(405);
+            header("Allow: GET, POST, DELETE");
+        }
+    }
 }

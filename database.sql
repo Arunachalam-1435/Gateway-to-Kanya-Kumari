@@ -26,6 +26,23 @@ CREATE TABLE users.orders (
         ON DELETE CASCADE
 );
 
+CREATE TABLE users.rooms (
+    room_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    hotel_name TEXT NOT NULL,
+    price INT NOT NULL,
+    check_in TIMESTAMP NOT NULL,
+    check_out TIMESTAMP NOT NULL,
+    person_count INT NOT NULL,
+    status TEXT DEFAULT 'confirmed',
+
+    -- This links the order to the specific user
+    CONSTRAINT fk_user 
+        FOREIGN KEY(user_id) 
+        REFERENCES users.users(id) 
+        ON DELETE CASCADE
+);
+
 CREATE TABLE geo.tourist_places (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,

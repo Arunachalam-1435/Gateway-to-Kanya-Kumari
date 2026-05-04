@@ -96,4 +96,69 @@ class UserModel{
             return false;
         }
     }
+    public function bookRoom($user_id, $hotel_name, $price, $check_in, $check_out, $person_count):bool{
+        try{
+            $stmt = $this->pdo->prepare("INSERT INTO users.rooms(user_id, hotel_name, price, check_in, check_out, person_count)
+            VALUES (:user_id, :hotel_name, :price, :check_in, :check_out, :person_count)");
+            $stmt->bindValue(':user_id', $user_id);
+            $stmt->bindValue(':hotel_name', $hotel_name);
+            $stmt->bindValue('price', $price);
+            $stmt->bindValue(':check_in', $check_in);
+            $stmt->bindValue(':check_out', $check_out);
+            $stmt->bindValue(':person_count', $person_count);
+            if($stmt->execute()){
+                $stmt = $this->pdo->prepare("UPDATE business.hotels SET available_rooms = available_rooms - 1 WHERE name = ?");
+                if($stmt->execute([$hotel_name])){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception $e){
+            return false;
+        }
+    }
+    public function getRoom($user_id):bool|array{
+        try{
+            $stmt = $this->pdo->prepare("SELECT * FROM users.rooms WHERE user_id = ?");
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetchAll();
+            if(!empty($result)){
+                return $result;
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception $e){
+            return false;
+        }
+    }
+    public function cancelRoom($user_id, $room_id, $hotel_name){
+        try{
+            $stmt = $this->pdo->prepare("DELETE FROM users.rooms WHERE user_id=:user_id AND room_id=:room_id");
+            $stmt->bindValue(':user_id', $user_id);
+            $stmt->bindValue(':room_id', $room_id);
+            if($stmt->execute()){
+                $stmt = $this->pdo->prepare("UPDATE business.hotels SET available_rooms = available_rooms + 1 WHERE name = ?");
+                if($stmt->execute([$hotel_name])){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception $e){
+            return false;
+        }
+    }
 }
