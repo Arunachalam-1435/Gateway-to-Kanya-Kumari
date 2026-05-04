@@ -69,13 +69,3 @@ CREATE TABLE business.shop (
     quantity INT,
     img_src TEXT NOT NULL
 );
-
-CREATE TABLE users.feedbacks (
-    id SERIAL PRIMARY KEY,
-    user_id INT,
-    place_id INT,
-    message TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users.users(id),
-    FOREIGN KEY (place_id) REFERENCES geo.tourist_places(id)
-);

@@ -210,6 +210,13 @@ class UserController{
                     ]);
                 }
             }
+            else{
+                http_response_code(401);
+                echo json_encode([
+                    "status" => "error", 
+                    "message" => "User session is not available. Please login"
+                ]);
+            }
         }
         else{
             http_response_code(405);
@@ -285,6 +292,13 @@ class UserController{
                         "message" => "No orders found"
                     ]);
                 }
+            }
+            else{
+                http_response_code(401);
+                echo json_encode([
+                    "status" => "error", 
+                    "message" => "User session is not available. Please login"
+                ]);
             }
         }
         else{

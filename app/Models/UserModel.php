@@ -98,28 +98,32 @@ class UserModel{
     }
     public function bookRoom($user_id, $hotel_name, $price, $check_in, $check_out, $person_count):bool{
         try{
+            $this->pdo->beginTransaction();
             $stmt = $this->pdo->prepare("INSERT INTO users.rooms(user_id, hotel_name, price, check_in, check_out, person_count)
             VALUES (:user_id, :hotel_name, :price, :check_in, :check_out, :person_count)");
+            
             $stmt->bindValue(':user_id', $user_id);
             $stmt->bindValue(':hotel_name', $hotel_name);
-            $stmt->bindValue('price', $price);
+            $stmt->bindValue(':price', $price);
             $stmt->bindValue(':check_in', $check_in);
             $stmt->bindValue(':check_out', $check_out);
             $stmt->bindValue(':person_count', $person_count);
-            if($stmt->execute()){
-                $stmt = $this->pdo->prepare("UPDATE business.hotels SET available_rooms = available_rooms - 1 WHERE name = ?");
-                if($stmt->execute([$hotel_name])){
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            }
-            else{
+            $stmt->execute();
+            
+            $stmt2 = $this->pdo->prepare("UPDATE business.hotels SET available_rooms = available_rooms - 1 WHERE name = ?
+            AND available_rooms > 0");
+            $stmt->execute([$hotel_name]);
+            
+            if($stmt2->rowCount() === 0){
+                $this->pdo->rollBack();
                 return false;
             }
+
+            $this->pdo->commit();
+            return true;
         }
         catch(Exception $e){
+            $this->pdo->rollBack();
             return false;
         }
     }

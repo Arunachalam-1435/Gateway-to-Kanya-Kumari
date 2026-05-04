@@ -148,6 +148,7 @@ function bookRoom(name, fee, id){
     var checkin = document.getElementById(`checkin-${id}`).value;
     var checkout = document.getElementById(`checkout-${id}`).value;
     var person_count = document.getElementById(`guests-${id}`).value;
+    person_count = Number(person_count);
 
     if(!checkin || !checkout){
         alert("Please select checkin and checkout dates");
