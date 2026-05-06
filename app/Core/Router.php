@@ -88,6 +88,21 @@ class Router{
                 $this->controller = new UserController();
                 $this->controller->roomsRequest($method);
                 break;
+            case "admin":
+                require __DIR__.'/../../public/pages/admin.html';
+                break;
+            case 'users':
+                $this->controller = new UserController();
+                $this->controller->userRequest($method);
+                break;
+            case 'all_orders':
+                $this->controller = new UserController();
+                $this->controller->allOrders($method);
+                break;
+            case 'all_rooms':
+                $this->controller = new UserController();
+                $this->controller->allBookings($method);
+                break;
             default:
                 require __DIR__.'/../../public/pages/404.html';
                 break;

@@ -1,9 +1,14 @@
 <?php
 namespace App\Controllers;
 use App\Models\UserModel;
+use App\Core\Database;
+use PDO;
 class UserController{
+    private PDO $pdo;
 	public function __construct(){
 		$this->model = new UserModel();
+        $conn = new Database();
+        $this->pdo = $conn->connect();
 	}
     public function getUser($method){
         header("Content-Type: application/json");    
@@ -304,6 +309,135 @@ class UserController{
         else{
             http_response_code(405);
             header("Allow: GET, POST, DELETE");
+        }
+    }
+    public function userRequest($method){
+        header("Content-Type: application/json");
+        $data = json_decode(file_get_contents("php://input"), true);
+        if($method == "GET"){
+            $stmt = "SELECT * FROM users.users";
+            $result = $this->pdo->query($stmt);
+            $result = $result->fetchAll();
+            if(!empty($result)){
+                echo json_encode($result);
+            }
+            else{
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "No user Found"
+                ]);
+            }
+        }
+        elseif($method == "DELETE"){
+            $user_id = $data['user_id'];
+            $stmt = $this->pdo->prepare("DELETE FROM users.users WHERE 
+            id=:user_id");
+            $stmt->bindValue(':user_id', $user_id);
+            if($stmt->execute()){
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "User Deleted Successfully"
+                ]);
+            }
+            else{
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "something went wrong"
+                ]);
+            }
+        }
+        else{
+            echo json_encode([
+                "status" => "error",
+                "message" => "Something went wrong"
+            ]);
+        }
+    }
+    public function allOrders($method){
+        $data = json_decode(file_get_contents("php://input"), true);
+        header("Content-Type: application/json");
+        if($method == "GET"){
+            $stmt = "SELECT * FROM users.orders";
+            $result = $this->pdo->query($stmt);
+            $result = $result->fetchAll();
+            if(!empty($result)){
+                echo json_encode($result);
+            }
+            else{
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "No order Found"
+                ]);
+            }
+        }
+        elseif($method == "DELETE"){
+            $stmt = $this->pdo->prepare("DELETE FROM users.orders WHERE user_id=:user_id AND order_id=:order_id");
+            $stmt->bindValue(':user_id', $data['user_id']);
+            $stmt->bindValue(':order_id', $data['order_id']);
+            if($stmt->execute()){
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Order Successfully deleted"
+                ]);
+            }
+            else{
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Can't cancel order"
+                ]);
+            }
+        }
+        else{
+            http_response_code(405);
+            header("Allow: GET, DELETE");
+        }
+    }
+    public function allBookings($method){
+        header("Content-Type: application/json");
+        if($method == "GET"){
+            $stmt = $this->pdo->prepare("SELECT * FROM users.rooms");
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            if(!empty($result)){
+                echo json_encode($result);
+            }
+            else{
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "No bookings found"
+                ]);
+            }
+        }
+        elseif($method == "DELETE"){
+            $data = json_decode(file_get_contents("php://input"), true);
+            $stmt = $this->pdo->prepare("DELETE FROM users.rooms WHERE user_id=:user_id AND room_id=:room_id");
+            $stmt->bindValue(':user_id', $data['user_id']);
+            $stmt->bindValue(':room_id', $data['room_id']);
+            if($stmt->execute()){
+                $stmt = $this->pdo->prepare("UPDATE business.hotels SET available_rooms = available_rooms + 1 WHERE name = ?");
+                if($stmt->execute([$data['hotel_name']])){
+                    echo json_encode([
+                        "status" => "success",
+                        "message" => "Booking Successfully cancelled"
+                    ]);
+                }
+                else{
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "Can't cancel booking"
+                    ]);
+                }
+            }
+            else{
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "Can't execute query"
+                ]);
+            }
+        }
+        else{
+            http_response_code(405);
+            header("Allow: GET, DELETE");
         }
     }
 }

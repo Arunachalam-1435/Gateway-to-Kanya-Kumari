@@ -8,7 +8,9 @@ CREATE TABLE users.users (
     id SERIAL PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
     email TEXT UNIQUE,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    role VARCHAR(20) DEFAULT 'user' 
+        CHECK (role IN('user', 'admin'))
 );
 
 CREATE TABLE users.orders (
@@ -17,7 +19,7 @@ CREATE TABLE users.orders (
     product_name TEXT NOT NULL,
     price INT NOT NULL,
     order_date TIMESTAMP NOT NULL,
-    status TEXT DEFAULT 'pending',
+    status TEXT DEFAULT 'Pending',
     
     -- This links the order to the specific user
     CONSTRAINT fk_user 
