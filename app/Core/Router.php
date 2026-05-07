@@ -89,17 +89,36 @@ class Router{
                 $this->controller->roomsRequest($method);
                 break;
             case "admin":
+                if(!isset($_SESSION['user_id']) || $_SESSION['role'] != "admin"){
+                    require __DIR__.'/../../public/pages/404.html';
+                    break;
+                }
                 require __DIR__.'/../../public/pages/admin.html';
                 break;
             case 'users':
+                if(!isset($_SESSION['user_id']) || $_SESSION['role'] != "admin"){
+                    http_response_code(403);
+                    echo json_encode(['status' => 'error', 'message' => 'Forbidden']);
+                    break;
+                }
                 $this->controller = new UserController();
                 $this->controller->userRequest($method);
                 break;
             case 'all_orders':
+                if(!isset($_SESSION['user_id']) || $_SESSION['role'] != "admin"){
+                    http_response_code(403);
+                    echo json_encode(['status' => 'error', 'message' => 'Forbidden']);
+                    break;
+                }
                 $this->controller = new UserController();
                 $this->controller->allOrders($method);
                 break;
             case 'all_rooms':
+                if(!isset($_SESSION['user_id']) || $_SESSION['role'] != "admin"){
+                    http_response_code(403);
+                    echo json_encode(['status' => 'error', 'message' => 'Forbidden']);
+                    break;
+                }
                 $this->controller = new UserController();
                 $this->controller->allBookings($method);
                 break;

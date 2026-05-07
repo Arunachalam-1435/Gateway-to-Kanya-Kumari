@@ -10,6 +10,7 @@ class UserController{
         $conn = new Database();
         $this->pdo = $conn->connect();
 	}
+    //get user data
     public function getUser($method){
         header("Content-Type: application/json");    
         if($method == "GET"){
@@ -124,6 +125,7 @@ class UserController{
                 $_SESSION['user_id'] = $result['id'];
                 $_SESSION['username'] = $result['username'];
                 $_SESSION['email_id'] = $result['email'];
+                $_SESSION['role'] = $result['role'];
                 http_response_code(200);
                 echo json_encode([
                     "status" => "success"
@@ -315,7 +317,7 @@ class UserController{
         header("Content-Type: application/json");
         $data = json_decode(file_get_contents("php://input"), true);
         if($method == "GET"){
-            $stmt = "SELECT * FROM users.users";
+            $stmt = "SELECT * FROM users.users ORDER BY id ASC";
             $result = $this->pdo->query($stmt);
             $result = $result->fetchAll();
             if(!empty($result)){

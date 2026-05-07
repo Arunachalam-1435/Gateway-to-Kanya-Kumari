@@ -77,7 +77,7 @@ function renderUsers(data) {
             <td>${u.id}</td>
             <td>${escHtml(u.username)}</td>
             <td>${escHtml(u.email)}</td>
-            <td><span class="role-badge ${u.is_admin ? 'role-admin' : 'role-user'}">${u.is_admin ? 'Admin' : 'User'}</span></td>
+            <td><span class="role-badge ${u.role === 'admin' ? 'role-admin' : 'role-user'}">${u.role}</span></td>
             <td><button class="delete-row-btn" onclick="handleDeleteUser(${u.id}, '${escHtml(u.username)}')">Delete</button></td>`;
         tbody.appendChild(tr);
     });
@@ -334,6 +334,19 @@ function handleDeleteOrder(order_id, user_id) {
                 fetch('/all_orders').then(r => r.json()).then(renderOrders);
             }
         })
+    });
+}
+function userLogout(){
+    fetch("/logout",{
+        redirect: "follow"
+    })
+    .then(response => {
+        if(response.redirected){
+            window.location.href = response.url;
+        }
+        else{
+            console.log(response);
+        }
     });
 }
 document.addEventListener('DOMContentLoaded', () => {
