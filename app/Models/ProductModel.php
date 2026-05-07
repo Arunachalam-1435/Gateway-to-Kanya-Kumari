@@ -9,7 +9,7 @@ class ProductModel{
         $this->pdo = $conn->connect();
 	}
 	public function getAllProducts():array{
-		$query = "SELECT * FROM business.shop;";
+		$query = "SELECT * FROM business.shop ORDER BY id ASC;";
 		$result = $this->pdo->query($query);
 		$result = $result->fetchAll();
 		return $result;

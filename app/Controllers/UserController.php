@@ -200,7 +200,7 @@ class UserController{
         elseif($method == "DELETE"){
             $data = json_decode(file_get_contents("php://input"), true);
             if(isset($_SESSION['user_id'])){
-                $result = $this->model->deleteOrder($_SESSION['user_id'], $data['order_id']);
+                $result = $this->model->deleteOrder($_SESSION['user_id'], $data['order_id'], $data['product_name']);
                 if($result != False){
                     http_response_code(200);
                     echo json_encode([

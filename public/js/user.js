@@ -77,7 +77,7 @@ function loadOrder(){
                     <p>📅 Delivery on: ${order.order_date}</p>
                 </div>
                 <div class="card-actions">
-                    <button class="cancel-btn" onclick="cancelOrder(${order.order_id})">Cancel</button>
+                    <button class="cancel-btn" onclick="cancelOrder(${order.order_id}, '${order.product_name}')">Cancel</button>
                 </div>
             </div>`;
         });
@@ -135,14 +135,15 @@ function cancelRoom(room_id, hotel_name){
     })
 }
 
-function cancelOrder(order_id){
+function cancelOrder(order_id, product_name){
     fetch("/orders",{
         method: "DELETE",
         headers:{
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            order_id: order_id
+            order_id: order_id,
+            product_name: product_name
         })
     })
     .then(response => response.json())

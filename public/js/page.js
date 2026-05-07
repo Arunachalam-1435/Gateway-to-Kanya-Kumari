@@ -96,10 +96,11 @@ function addToCart(product_name, product_price){
     .then(response => response.json())
     .then(data => {
         if(data['status'] !== "success"){
-            console.log(data['message']);
+            alert(data['message']);
         }
         else{
             alert(data['message']);
+            location.reload();
         }
     })
 }
@@ -139,7 +140,7 @@ function addHotels(){
             });
         }
         else{
-            console.log("No Hotels Found");
+            alert("No Hotels Found");
         }
     });
 }
@@ -175,6 +176,7 @@ function bookRoom(name, fee, id){
     .then(data => {
         if(data.status === "success"){
             alert(data.message);
+            location.reload();
         }
         else{
             alert(data.message);
