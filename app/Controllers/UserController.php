@@ -374,10 +374,8 @@ class UserController{
             }
         }
         elseif($method == "DELETE"){
-            $stmt = $this->pdo->prepare("DELETE FROM users.orders WHERE user_id=:user_id AND order_id=:order_id");
-            $stmt->bindValue(':user_id', $data['user_id']);
-            $stmt->bindValue(':order_id', $data['order_id']);
-            if($stmt->execute()){
+            $result = $this->model->deleteOrder($data['user_id'], $data['order_id'], $data['product_name']);
+            if($result == true){
                 echo json_encode([
                     "status" => "success",
                     "message" => "Order Successfully deleted"
@@ -413,23 +411,12 @@ class UserController{
         }
         elseif($method == "DELETE"){
             $data = json_decode(file_get_contents("php://input"), true);
-            $stmt = $this->pdo->prepare("DELETE FROM users.rooms WHERE user_id=:user_id AND room_id=:room_id");
-            $stmt->bindValue(':user_id', $data['user_id']);
-            $stmt->bindValue(':room_id', $data['room_id']);
-            if($stmt->execute()){
-                $stmt = $this->pdo->prepare("UPDATE business.hotels SET available_rooms = available_rooms + 1 WHERE name = ?");
-                if($stmt->execute([$data['hotel_name']])){
-                    echo json_encode([
-                        "status" => "success",
-                        "message" => "Booking Successfully cancelled"
-                    ]);
-                }
-                else{
-                    echo json_encode([
-                        "status" => "error",
-                        "message" => "Can't cancel booking"
-                    ]);
-                }
+            $result = $this->model->cancelRoom($data['user_id'],$data['room_id'], $data['hotel_name']);
+            if($result == true){
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Booking Successfully cancelled"
+                ]);
             }
             else{
                 echo json_encode([

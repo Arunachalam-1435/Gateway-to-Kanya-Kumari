@@ -308,11 +308,11 @@ function renderOrders(data) {
             <td>₹${order.price}</td>
             <td>${order.order_date ? order.order_date.slice(0, 10) : '—'}</td>
             <td><span class="status-badge ${order.status}">${order.status}</span></td>
-            <td><button class="delete-row-btn" onclick="handleDeleteOrder(${order.order_id}, ${order.user_id})">Delete</button></td>`;
+            <td><button class="delete-row-btn" onclick="handleDeleteOrder(${order.order_id}, ${order.user_id}, '${order.product_name}')">Delete</button></td>`;
         tbody.appendChild(tr);
     });
 }
-function handleDeleteOrder(order_id, user_id) {
+function handleDeleteOrder(order_id, user_id, product_name) {
     confirmDelete(`Delete order ID ${order_id}? This cannot be undone.`, () => {
         fetch("/all_orders",{
             method: "DELETE",
@@ -321,7 +321,8 @@ function handleDeleteOrder(order_id, user_id) {
             },
             body: JSON.stringify({
                 user_id: user_id,
-                order_id: order_id
+                order_id: order_id,
+                product_name: product_name
             })
         })
         .then(res => res.json())

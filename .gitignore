@@ -6,3 +6,5 @@ vendor/*
 .vscode/*
 #ignoring images 
 public/images/*
+#ignoring .htaccess file
+public/.htaccess
