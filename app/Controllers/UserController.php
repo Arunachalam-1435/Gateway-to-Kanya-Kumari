@@ -11,10 +11,10 @@ class UserController{
         $this->pdo = $conn->connect();
 	}
     //get user data
-    public function getUser($method){
-        header("Content-Type: application/json");    
+    public function getUser($method){    
         if($method == "GET"){
             if(isset($_SESSION['user_id'])){
+                header("Content-Type: application/json");
                 echo json_encode([
                 "status" => "success",
                 "username" => $_SESSION['username'],
@@ -26,6 +26,7 @@ class UserController{
             }
         }
         else{
+            header("Content-Type: application/json");
             echo json_encode([
                 "status" => "error",
                 "redirect" => "/home#login-section"

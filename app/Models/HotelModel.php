@@ -25,7 +25,7 @@ class HotelModel{
 			return true;
 		}
 		else{
-			return true;
+			return false;
 		}
 	}
 	public function deleteHotel($id){
